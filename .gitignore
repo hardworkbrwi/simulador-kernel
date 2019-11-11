@@ -1,0 +1,16 @@
+# Para todos os arquivos e sub-pastas localizados na pasta vscode/
+.vscode/
+# Para arquivos Java compilados
+*.class
+# Para código C
+*.so
+# Para código python
+*__pycache__/
+# Para arquivos astah compilados
+*.bak
+# Para todos os arquivos e sub-pastas localizados na pasta bower_components/
+bower_components/
+
+.idea
+.git
+discorepositorio.csv
