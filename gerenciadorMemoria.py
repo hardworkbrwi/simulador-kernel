@@ -32,7 +32,7 @@ class GerenciadorMemoria:
 
             posicaoInicial = self._mapaBits.indiceMemoriaLivre
             
-            memoriaPrimaria.executarProcessoMemoria( processo, posicaoInicial )
+            memoriaPrimaria.adicionarProcessoMemoria( processo, posicaoInicial )
 
             segmento = Segmento()
             segmento.processo = processo
@@ -61,7 +61,7 @@ class GerenciadorMemoria:
             # FUNÇÃO DEVERÁ SER ALTERADA PARA AJUSTAR SUA RESPONSABILIDADE ÚNICA
             # DEVERÁ APENAS ADICIONAR À MEMÓRIA E NÃO EXECUTAR
             # EXECUÇÃO É NA CPU
-            memoriaPrimaria.executarProcessoMemoria( processo, posicaoInicial )
+            memoriaPrimaria.adicionarProcessoMemoria( processo, posicaoInicial )
 
             segmento = Segmento()
             segmento.processo = processo

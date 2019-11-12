@@ -58,7 +58,7 @@ def adicionarUmProcessoMemoriaPrimariaTeste():
 
     # Execução
     memoriaPrimaria = MemoriaPrimaria()
-    memoriaPrimaria.executarProcessoMemoria( processo, 0 )
+    memoriaPrimaria.adicionarProcessoMemoria( processo, 0 )
 
     # Verificação
     memoriaPrimaria.exibirMemoriaPrimaria()
@@ -79,10 +79,10 @@ def adicionarDoisProcessoMemoriaPrimariaTeste():
     memoriaPrimaria = MemoriaPrimaria()
 
     posicaoInicialPrimeiroProcesso = 0
-    memoriaPrimaria.executarProcessoMemoria( processo, posicaoInicialPrimeiroProcesso )
+    memoriaPrimaria.adicionarProcessoMemoria( processo, posicaoInicialPrimeiroProcesso )
 
     posicaoInicialSegundoProcesso = processo.tamanhoProcesso
-    memoriaPrimaria.executarProcessoMemoria( processo1, posicaoInicialSegundoProcesso )
+    memoriaPrimaria.adicionarProcessoMemoria( processo1, posicaoInicialSegundoProcesso )
 
     # Verificação
     memoriaPrimaria.exibirMemoriaPrimaria()
@@ -108,13 +108,13 @@ def adicionarTresProcessoMemoriaPrimariaTeste():
     memoriaPrimaria = MemoriaPrimaria()
     
     posicaoInicialPrimeiroProcesso = 0
-    memoriaPrimaria.executarProcessoMemoria( processo, posicaoInicialPrimeiroProcesso )
+    memoriaPrimaria.adicionarProcessoMemoria( processo, posicaoInicialPrimeiroProcesso )
 
     posicaoInicialSegundoProcesso = processo.tamanhoProcesso
-    memoriaPrimaria.executarProcessoMemoria( processo1, posicaoInicialSegundoProcesso )
+    memoriaPrimaria.adicionarProcessoMemoria( processo1, posicaoInicialSegundoProcesso )
 
     posicaoInicialTerceiroProcesso = processo.tamanhoProcesso + processo1.tamanhoProcesso
-    memoriaPrimaria.executarProcessoMemoria( processo2, posicaoInicialTerceiroProcesso )
+    memoriaPrimaria.adicionarProcessoMemoria( processo2, posicaoInicialTerceiroProcesso )
 
     # Verificação
     memoriaPrimaria.exibirMemoriaPrimaria()
@@ -142,13 +142,13 @@ def adicionarProcessosAcimaCapacidadeMemoriaPrimariaTeste():
     memoriaPrimaria = MemoriaPrimaria()
     
     posicaoInicialPrimeiroProcesso = 0
-    memoriaPrimaria.executarProcessoMemoria( processo, posicaoInicialPrimeiroProcesso )
+    memoriaPrimaria.adicionarProcessoMemoria( processo, posicaoInicialPrimeiroProcesso )
 
     posicaoInicialSegundoProcesso = processo.tamanhoProcesso
-    memoriaPrimaria.executarProcessoMemoria( processo1, posicaoInicialSegundoProcesso )
+    memoriaPrimaria.adicionarProcessoMemoria( processo1, posicaoInicialSegundoProcesso )
 
     posicaoInicialTerceiroProcesso = processo.tamanhoProcesso + processo1.tamanhoProcesso
-    memoriaPrimaria.executarProcessoMemoria( processo2, posicaoInicialTerceiroProcesso )
+    memoriaPrimaria.adicionarProcessoMemoria( processo2, posicaoInicialTerceiroProcesso )
 
     # Verificação
     memoriaPrimaria.exibirMemoriaPrimaria()
@@ -174,13 +174,13 @@ def removerProcessoMemoriaPrimariaTeste():
     memoriaPrimaria = MemoriaPrimaria()
     
     posicaoInicialPrimeiroProcesso = 0
-    memoriaPrimaria.executarProcessoMemoria( processo, posicaoInicialPrimeiroProcesso )
+    memoriaPrimaria.adicionarProcessoMemoria( processo, posicaoInicialPrimeiroProcesso )
 
     posicaoInicialSegundoProcesso = processo.tamanhoProcesso
-    memoriaPrimaria.executarProcessoMemoria( processo1, posicaoInicialSegundoProcesso )
+    memoriaPrimaria.adicionarProcessoMemoria( processo1, posicaoInicialSegundoProcesso )
 
     posicaoInicialTerceiroProcesso = processo.tamanhoProcesso + processo1.tamanhoProcesso
-    memoriaPrimaria.executarProcessoMemoria( processo2, posicaoInicialTerceiroProcesso )
+    memoriaPrimaria.adicionarProcessoMemoria( processo2, posicaoInicialTerceiroProcesso )
 
 
     # Verificação

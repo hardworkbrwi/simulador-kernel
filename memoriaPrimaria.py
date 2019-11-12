@@ -16,7 +16,7 @@ class MemoriaPrimaria:
         self._posicoesMemoria = []
         
 
-    def executarProcessoMemoria( self, processo, posicaoInicial ):
+    def adicionarProcessoMemoria( self, processo, posicaoInicial ):
         espacoUtilizadoMemoria = len( self._posicoesMemoria )
         tamanhoProcessoNovo = processo.tamanhoProcesso
 
