@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-#memory_manager.py
+#kernel.py
 
 import os
 
@@ -14,10 +14,11 @@ def menu():
     print(  "-------- Gerenciador de Memória --------".center(52) )
     print(  "O que você deseja fazer?\n" +
 		    "Entre com um dos valores numéricos referêntes aos itens abaixo." )
-    print(  "1 - Adicionar Processo à memória;\n" +
-            "2 - Exibir mapa de bits;\n" +
-            "3 - Alterar modo de substituição de processo;\n" +
-            "4 - Encerrar processo principal.\n")
+    print(  "1 - Criar Processo;\n" +
+            "2 - Adicionar Processo à memória;\n" +
+            "3 - Exibir mapa de bits;\n" +
+            "4 - Alterar modo de substituição de processo;\n" +
+            "5 - Encerrar processo principal.\n")
     print(  "Obs.: Por default a configuração de substituição de processo é por swapping.\n"+
             "A fim de alterar o modo de substituição para paginação, selecionar a opção 3.\n" )
 
@@ -31,10 +32,15 @@ def menu():
 if __name__ == '__main__':
 
     memoriaPrimaria = MemoriaPrimaria()
-
-    gerenciadorMemoria = GerenciadorMemoria()
+    TAMANHOPAGINA = 200
 
     metodoSubstituicaoProcesso = SubstituicaoProcesso.SWAPPING
+
+    if( metodoSubstituicaoProcesso == SubstituicaoProcesso.SWAPPING ):
+        gerenciadorMemoria = GerenciadorMemoria()
+
+    else:
+        gerenciadorMemoria = GerenciadorMemoria( TAMANHOPAGINA )
     
     while( True ):
 
@@ -42,24 +48,26 @@ if __name__ == '__main__':
         opcao = menu()
 
         if( opcao == 1 ):
-            if( metodoSubstituicaoProcesso == SubstituicaoProcesso.SWAPPING ):
-                processo = MemoriaSecundaria.buscarProcesso()
-                gerenciadorMemoria.adicionarProcessoMemoriaPrimaria( memoriaPrimaria, processo )
-                
-            else:
-                # Definir modelo de paginação
-                pass
+            # DEFINIR A CRIAÇÃO DE UM PROCESSO E ADICIONÁ-LO NO DISCO
+            pass
 
         elif( opcao == 2 ):
-            gerenciadorMemoria.exibirMapaBits()
+            processo = MemoriaSecundaria.buscarProcesso()
+            gerenciadorMemoria.adicionarProcessoMemoriaPrimaria( memoriaPrimaria, processo )
 
         elif( opcao == 3 ):
-            if( metodoSubstituicaoProcesso == SubstituicaoProcesso.SWAPPING ):
-                metodoSubstituicaoProcesso = SubstituicaoProcesso.PAGINACAO
-            else:
-                metodoSubstituicaoProcesso = SubstituicaoProcesso.SWAPPING
+            gerenciadorMemoria.exibirMapaBits()
 
         elif( opcao == 4 ):
+            if( metodoSubstituicaoProcesso == SubstituicaoProcesso.SWAPPING ):
+                metodoSubstituicaoProcesso = SubstituicaoProcesso.PAGINACAO
+                gerenciadorMemoria.tamanhoPagina = TAMANHOPAGINA
+                
+            else:
+                metodoSubstituicaoProcesso = SubstituicaoProcesso.SWAPPING
+                gerenciadorMemoria.tamanhoPagina = None
+
+        elif( opcao == 5 ):
             pid = os.getpid()
             os.kill( pid, 15 )
 

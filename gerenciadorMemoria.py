@@ -107,3 +107,11 @@ class GerenciadorMemoria:
 
     def _criarPagina( self, processo ):
         pass
+
+    @property
+    def tamanhoPagina( self ):
+        return self._tamanhoPagina
+
+    @tamanhoPagina.setter
+    def tamanhoPagina( self, tamanhoPagina ):
+        self._tamanhoPagina = tamanhoPagina
