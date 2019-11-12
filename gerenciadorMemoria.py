@@ -11,11 +11,12 @@ class GerenciadorMemoria:
 
     """ Description	"""
     
-    __slots__ = [ "_mapaBits" ]
+    __slots__ = [ "_mapaBits", "_tamanhoPagina" ]
 
-    def __init__( self ):
+    def __init__( self, tamanhoPagina = None ):
         self._mapaBits = MapeamentoEncadeadoBits()
-
+        self._tamanhoPagina = tamanhoPagina
+    '''
     def adicionarProcessoMemoriaPrimaria( self, memoriaPrimaria, processo = None ):        
 
         if( processo == None ):
@@ -39,9 +40,37 @@ class GerenciadorMemoria:
             segmento.quantidadePosicoes = tamanhoProcesso
 
             self._mapaBits.adicionarSegmento( segmento )
+    '''
 
-    def adicionarPaginaMemoriaPrimaria( self, memoriaPrimaria, processo = None ):
-        pass
+    def adicionarProcessoMemoriaPrimaria( self, memoriaPrimaria, processo = None ):
+        
+        if( processo == None ):
+            self._removerProcessoMemoriaPrimaria( memoriaPrimaria, processo )
+
+        else:
+            quantidadePosicoesOcupadasMemoria = len( memoriaPrimaria.posicoesMemoria )
+            if( self._tamanhoPagina == None ):
+                self._tamanhoPagina = processo.tamanhoProcesso
+
+            tamanhoMaxMemoria = memoriaPrimaria.tamanhoMemoria
+
+            if( quantidadePosicoesOcupadasMemoria + self._tamanhoPagina >= tamanhoMaxMemoria ):
+                self._removerProcessoMemoriaPrimaria( memoriaPrimaria, processo )
+
+            posicaoInicial = self._mapaBits.indiceMemoriaLivre
+            # FUNÇÃO DEVERÁ SER ALTERADA PARA AJUSTAR SUA RESPONSABILIDADE ÚNICA
+            # DEVERÁ APENAS ADICIONAR À MEMÓRIA E NÃO EXECUTAR
+            # EXECUÇÃO É NA CPU
+            memoriaPrimaria.executarProcessoMemoria( processo, posicaoInicial )
+
+            segmento = Segmento()
+            segmento.processo = processo
+            segmento.posicaoInicial = posicaoInicial
+            segmento.quantidadePosicoes = self._tamanhoPagina
+
+            self._mapaBits.adicionarSegmento( segmento )
+
+
     
     def exibirMapaBits( self ):
         self._mapaBits.exibirMapaBits()
