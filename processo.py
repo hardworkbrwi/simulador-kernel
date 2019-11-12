@@ -27,9 +27,10 @@ class Processo:
     :field tempoVida: define o tempo de vida útil do processo
     '''
 
-    __slots__ = [ "_idProcesso", "_tamanhoProcesso", "_tempoExecucao", "_tempoVida", "_prioridade" ]
+    __slots__ = [ "_idProcesso", "_nomeProcesso", "_tamanhoProcesso", "_tempoExecucao", "_prioridade", "_tempoVida" ]
 
     def __init__( self, tempoExecucao = 2 ):
+        self._nomeProcesso = ""
         self._tempoExecucao = tempoExecucao
 
     def executar( self ):
@@ -39,8 +40,8 @@ class Processo:
         print( "Processo {} está executando.".format( self._idProcesso ) )
 
     def exibirInfoProcesso( self ):
-        print( "ID: {}\nTamanho: {}\nTempo Execução: {}\nTempo Vida: {}".format( self._idProcesso,
-        self._tamanhoProcesso, self._tempoExecucao, self._tempoVida ) )
+        print( "ID: {}\nNome Processo: {}\nTamanho: {}\nTempo Execução: {}\nPrioridade: {}\nTempo Vida: {}".format( self._idProcesso,
+        self._nomeProcesso, self._tamanhoProcesso, self._tempoExecucao, self._prioridade, self._tempoVida ) )
 
     @property
     def idProcesso( self ):
@@ -49,6 +50,14 @@ class Processo:
     @idProcesso.setter
     def idProcesso( self, idProcesso ):
         self._idProcesso = int( idProcesso )
+
+    @property
+    def nomeProcesso( self ):
+        return self._nomeProcesso
+    
+    @nomeProcesso.setter
+    def nomeProcesso( self, nomeProcesso ):
+        self._nomeProcesso = int( nomeProcesso )    
 
     @property
     def tamanhoProcesso( self ):
@@ -67,6 +76,14 @@ class Processo:
         self._tempoExecucao = int( tempoExecucao )
 
     @property
+    def prioridade( self ):
+        return self._prioridade
+    
+    @prioridade.setter
+    def prioridade( self, prioridade ):
+        self._prioridade = int( prioridade )
+    
+    @property
     def tempoVida( self ):
         return self._tempoVida
     
@@ -74,14 +91,6 @@ class Processo:
     def tempoVida( self, tempoVida ):
         self._tempoVida = int( tempoVida )
     
-    @property
-    def prioridade( self ):
-        return self._prioridade
-    
-    @prioridade.setter
-    def prioridade( self, prioridade ):
-        self._prioridade = int( prioridade )
-        pass
 
     
 
