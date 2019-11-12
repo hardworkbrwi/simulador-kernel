@@ -16,9 +16,10 @@ def menu():
 		    "Entre com um dos valores numéricos referêntes aos itens abaixo." )
     print(  "1 - Criar Processo;\n" +
             "2 - Adicionar Processo à memória;\n" +
-            "3 - Exibir mapa de bits;\n" +
-            "4 - Alterar modo de substituição de processo;\n" +
-            "5 - Encerrar processo principal.\n")
+            "3 - Executar Processo;\n" +
+            "4 - Exibir mapa de bits;\n" +
+            "5 - Alterar modo de substituição de processo;\n" +
+            "6 - Encerrar processo principal.\n")
     print(  "Obs.: Por default a configuração de substituição de processo é por swapping.\n"+
             "A fim de alterar o modo de substituição para paginação, selecionar a opção 3.\n" )
 
@@ -56,9 +57,13 @@ if __name__ == '__main__':
             gerenciadorMemoria.adicionarProcessoMemoriaPrimaria( memoriaPrimaria, processo )
 
         elif( opcao == 3 ):
-            gerenciadorMemoria.exibirMapaBits()
+            # DEFINIR A EXECUÇÃO DE PROCESSOS
+            pass
 
         elif( opcao == 4 ):
+            gerenciadorMemoria.exibirMapaBits()
+
+        elif( opcao == 5 ):
             if( metodoSubstituicaoProcesso == SubstituicaoProcesso.SWAPPING ):
                 metodoSubstituicaoProcesso = SubstituicaoProcesso.PAGINACAO
                 gerenciadorMemoria.tamanhoPagina = TAMANHOPAGINA
@@ -67,7 +72,7 @@ if __name__ == '__main__':
                 metodoSubstituicaoProcesso = SubstituicaoProcesso.SWAPPING
                 gerenciadorMemoria.tamanhoPagina = None
 
-        elif( opcao == 5 ):
+        elif( opcao == 6 ):
             pid = os.getpid()
             os.kill( pid, 15 )
 
