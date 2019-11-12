@@ -295,7 +295,7 @@ def executarProcesso():
     processo.idProcesso = 4
     processo.tamanhoProcesso = 200
     processo.tempoExecucao = 2
-    processo.tempoVida = 3
+    processo.tempoVida = 1
 
     processador = Processador()
 

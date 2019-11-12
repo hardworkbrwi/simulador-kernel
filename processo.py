@@ -73,6 +73,15 @@ class Processo:
     @tempoVida.setter
     def tempoVida( self, tempoVida ):
         self._tempoVida = int( tempoVida )
+    
+    @property
+    def prioridade( self ):
+        return self.prioridade
+    
+    @prioridade.setter
+    def prioridade( self, prioridade ):
+        self.prioridade = int( prioridade )
+        pass
 
     
 
