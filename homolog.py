@@ -314,7 +314,7 @@ def escalonarProcessos():
         processo.tamanhoProcesso = randint( 1,50 )
         processo.tempoExecucao = randint( 1,50 )
         processo.tempoVida = randint( 1,50 )
-        processo.prioridade = 0
+        processo.prioridade = randint( 0, 4 )
         gerenciadorMemoria.adicionarProcessoMemoriaPrimaria( memoriaPrimaria, processo )
 
     processador.escalonarProcessos(memoriaPrimaria)

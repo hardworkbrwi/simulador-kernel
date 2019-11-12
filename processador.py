@@ -6,6 +6,10 @@
 from processo import Processo
 
 class Processador:
+    __slots__ = [ "_tabelaDeExecucaoDeProcessos"]
+
+    def __init__( self ):
+        self._tabelaDeExecucaoDeProcessos = [ [] for _ in range(5) ]
 
     def executar( self, processo ):
         tempoDeVidaInicial = processo.tempoVida
@@ -20,19 +24,15 @@ class Processador:
 
         return 1
     
-    # o metodo possui um erro. Pois ele está com dois processos iguais
-    # no escalonamento.
-    def escalonarProcessos( self, memoriaPrimaria ):
-        ordemDosProcessos = [ [] for _ in range(4) ]
+    def montarTabelaDeExecucaoDeProcessos( self, memoriaPrimaria ):
         item = 0
 
         while item < len( memoriaPrimaria.posicoesMemoria ):
             processo = memoriaPrimaria.posicoesMemoria[ item ]
-            ordemDosProcessos[ processo.prioridade ].append( processo )
-            item = item + processo.tamanhoProcesso - 1
-        
-        for processos in ordemDosProcessos:
-            for processo in processos:
-                processo.exibirInfoProcesso()
-        pass
+            self._tabelaDeExecucaoDeProcessos[ processo.prioridade ].append( processo )
+            item = item + processo.tamanhoProcesso
+    
 
+    def atualizarTabelaDeExecucaoDeProcessos( self ):
+        
+        pass
