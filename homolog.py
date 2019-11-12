@@ -9,6 +9,7 @@ from segmento import Segmento
 from memoriaPrimaria import MemoriaPrimaria
 from memoriaSecundaria import MemoriaSecundaria
 from gerenciadorMemoria import GerenciadorMemoria
+from processador import Processador
 
 def manipularArquivoDiscoTeste():    
     # Configuração
@@ -289,10 +290,17 @@ def removeProcessoMemoriaPrimariaQuandoArquivoVazio():
     # Validação
     gerenciadorMemoria.exibirMapaBits()
 
+def executarProcesso():
+    processo = Processo()
+    processo.idProcesso = 4
+    processo.tamanhoProcesso = 200
+    processo.tempoExecucao = 2
+    processo.tempoVida = 3
 
+    processador = Processador()
 
-
-
+    print(processador.executar(processo))
+    
 
     
 if __name__ == '__main__':
@@ -309,3 +317,5 @@ if __name__ == '__main__':
     #adicionarProcessosMaiorGerenciadorMemoria_PrimeiroProcessoNaoRetornaAoDiscoTeste()
 
     #removeProcessoMemoriaPrimariaQuandoArquivoVazio()
+
+    executarProcesso()
