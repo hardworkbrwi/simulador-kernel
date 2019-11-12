@@ -27,7 +27,7 @@ class Processo:
     :field tempoVida: define o tempo de vida útil do processo
     '''
 
-    __slots__ = [ "_idProcesso", "_tamanhoProcesso", "_tempoExecucao", "_tempoVida" ]
+    __slots__ = [ "_idProcesso", "_tamanhoProcesso", "_tempoExecucao", "_tempoVida", "_prioridade" ]
 
     def __init__( self, tempoExecucao = 2 ):
         self._tempoExecucao = tempoExecucao
@@ -76,11 +76,11 @@ class Processo:
     
     @property
     def prioridade( self ):
-        return self.prioridade
+        return self._prioridade
     
     @prioridade.setter
     def prioridade( self, prioridade ):
-        self.prioridade = int( prioridade )
+        self._prioridade = int( prioridade )
         pass
 
     

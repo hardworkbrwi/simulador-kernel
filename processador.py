@@ -12,14 +12,27 @@ class Processador:
         processo.tempoVida = processo.tempoVida - 2
 
         print( "Está sendo executado o processo com id: " , processo.idProcesso )
-        
+
         if processo.tempoVida <= 0:
             return -1
         elif tempoDeVidaInicial == processo.tempoVida:
             return 0 
 
         return 1
+    
+    # o metodo possui um erro. Pois ele está com dois processos iguais
+    # no escalonamento.
+    def escalonarProcessos( self, memoriaPrimaria ):
+        ordemDosProcessos = [ [] for _ in range(4) ]
+        item = 0
 
-    def escalonarProcessos( self, memoria):
+        while item < len( memoriaPrimaria.posicoesMemoria ):
+            processo = memoriaPrimaria.posicoesMemoria[ item ]
+            ordemDosProcessos[ processo.prioridade ].append( processo )
+            item = item + processo.tamanhoProcesso - 1
+        
+        for processos in ordemDosProcessos:
+            for processo in processos:
+                processo.exibirInfoProcesso()
         pass
 

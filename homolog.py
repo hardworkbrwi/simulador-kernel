@@ -10,6 +10,7 @@ from memoriaPrimaria import MemoriaPrimaria
 from memoriaSecundaria import MemoriaSecundaria
 from gerenciadorMemoria import GerenciadorMemoria
 from processador import Processador
+from random import randint
 
 def manipularArquivoDiscoTeste():    
     # Configuração
@@ -301,7 +302,27 @@ def executarProcesso():
 
     print(processador.executar(processo))
     
+def escalonarProcessos():
+    
+    memoriaPrimaria = MemoriaPrimaria()
+    gerenciadorMemoria = GerenciadorMemoria()
+    processador = Processador()
 
+    for id in range(10):
+        processo = Processo()
+        processo.idProcesso = id
+        processo.tamanhoProcesso = randint( 1,50 )
+        processo.tempoExecucao = randint( 1,50 )
+        processo.tempoVida = randint( 1,50 )
+        processo.prioridade = 0
+        gerenciadorMemoria.adicionarProcessoMemoriaPrimaria( memoriaPrimaria, processo )
+
+    processador.escalonarProcessos(memoriaPrimaria)
+
+    #Validação
+    memoriaPrimaria.exibirMemoriaPrimaria()
+
+    gerenciadorMemoria.exibirMapaBits()
     
 if __name__ == '__main__':
     #manipularArquivoDiscoTeste()
@@ -318,4 +339,5 @@ if __name__ == '__main__':
 
     #removeProcessoMemoriaPrimariaQuandoArquivoVazio()
 
-    executarProcesso()
+    #executarProcesso()
+    escalonarProcessos()
