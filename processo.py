@@ -29,9 +29,10 @@ class Processo:
 
     __slots__ = [ "_idProcesso", "_nomeProcesso", "_tamanhoProcesso", "_tempoExecucao", "_prioridade", "_tempoVida" ]
 
-    def __init__( self, tempoExecucao = 2 ):
+    def __init__( self, tempoExecucao = 2, prioridade = 4 ):
         self._nomeProcesso = ""
         self._tempoExecucao = tempoExecucao
+        self._prioridade = prioridade
 
     def executar( self ):
         '''
@@ -40,8 +41,7 @@ class Processo:
         print( "Processo {} está executando.".format( self._idProcesso ) )
 
     def exibirInfoProcesso( self ):
-        print( "ID: {}\nNome Processo: {}\nTamanho: {}\nTempo Execução: {}\nPrioridade: {}\nTempo Vida: {}".format( self._idProcesso,
-        self._nomeProcesso, self._tamanhoProcesso, self._tempoExecucao, self._prioridade, self._tempoVida ) )
+        print( "ID: {}\nNome Processo: {}\nTamanho: {}\nTempo Execução: {}\nPrioridade: {}\nTempo Vida: {}".format( self._idProcesso, self._nomeProcesso, self._tamanhoProcesso, self._tempoExecucao, self._prioridade ,self._tempoVida ) )
 
     @property
     def idProcesso( self ):

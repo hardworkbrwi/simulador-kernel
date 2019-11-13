@@ -3,6 +3,8 @@
 
 #homolog.py
 
+from random import randint
+
 from processo import Processo
 from mapeamentoEncadeadoBits import MapeamentoEncadeadoBits
 from segmento import Segmento
@@ -10,7 +12,8 @@ from memoriaPrimaria import MemoriaPrimaria
 from memoriaSecundaria import MemoriaSecundaria
 from gerenciadorMemoria import GerenciadorMemoria
 from processador import Processador
-from random import randint
+from kernel import criarProcesso
+
 
 def manipularArquivoDiscoTeste():    
     # Configuração
@@ -270,7 +273,7 @@ def adicionarProcessosMaiorGerenciadorMemoria_PrimeiroProcessoNaoRetornaAoDiscoT
 
     gerenciadorMemoria.exibirMapaBits()
 
-def removeProcessoMemoriaPrimariaQuandoArquivoVazio():
+def removeProcessoMemoriaPrimariaQuandoArquivoVazioTeste():
     # Configuração
     processo = Processo()
     processo.idProcesso = 4
@@ -317,12 +320,38 @@ def escalonarProcessos():
         processo.prioridade = randint( 0, 4 )
         gerenciadorMemoria.adicionarProcessoMemoriaPrimaria( memoriaPrimaria, processo )
 
-    processador.escalonarProcessos(memoriaPrimaria)
+    #processador.escalonarProcessos(memoriaPrimaria)
 
     #Validação
     memoriaPrimaria.exibirMemoriaPrimaria()
 
     gerenciadorMemoria.exibirMapaBits()
+
+def gerarAdicionarNovoProcessoDiscoTeste():
+    # Configuração
+    idProcesso = randint( 5000, 6000 )
+    processosStr = []
+    processoStr = ""
+    processo = Processo()        
+
+    # Execução
+    criarProcesso( idProcesso )
+
+    try:
+        disco = open( "discorepositorio.csv", "r" )
+
+    except IOError as io:
+        print( "Não foi possível abrir o arquivo {}".format( io ) )
+
+    else:
+        processosStr = disco.readlines()
+        disco.close()
+    
+    processoStr = processosStr[-1]
+
+    # Validação
+    processo = MemoriaSecundaria._converterStringParaProcesso( processoStr )
+    processo.exibirInfoProcesso()
     
 if __name__ == '__main__':
     #manipularArquivoDiscoTeste()
@@ -337,7 +366,9 @@ if __name__ == '__main__':
 
     #adicionarProcessosMaiorGerenciadorMemoria_PrimeiroProcessoNaoRetornaAoDiscoTeste()
 
-    #removeProcessoMemoriaPrimariaQuandoArquivoVazio()
+    #removeProcessoMemoriaPrimariaQuandoArquivoVazioTeste()
 
     #executarProcesso()
-    escalonarProcessos()
+    #escalonarProcessos()
+
+    gerarAdicionarNovoProcessoDiscoTeste()

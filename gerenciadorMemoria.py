@@ -58,9 +58,7 @@ class GerenciadorMemoria:
                 self._removerProcessoMemoriaPrimaria( memoriaPrimaria, processo )
 
             posicaoInicial = self._mapaBits.indiceMemoriaLivre
-            # FUNÇÃO DEVERÁ SER ALTERADA PARA AJUSTAR SUA RESPONSABILIDADE ÚNICA
-            # DEVERÁ APENAS ADICIONAR À MEMÓRIA E NÃO EXECUTAR
-            # EXECUÇÃO É NA CPU
+            
             memoriaPrimaria.adicionarProcessoMemoria( processo, posicaoInicial )
 
             segmento = Segmento()

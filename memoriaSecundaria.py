@@ -48,6 +48,8 @@ class MemoriaSecundaria:
         '''
         try:
             arquivo = open( 'disco.csv', 'r' )
+            #arquivo = open( 'discorepositorio.csv', 'r' )
+            
 
         except IOError as io:
             print( "Não foi possível abrir o arquivo {}".format( io ) )
@@ -66,6 +68,7 @@ class MemoriaSecundaria:
     def _gravarDisco( cls, processosStr ):
         try:
             arquivo = open( 'disco.csv', 'w' )
+            #arquivo = open( 'discorepositorio.csv', "w" )
 
         except IOError as io:
             print( "Não foi possível abrir o arquivo {}".format( io ) )

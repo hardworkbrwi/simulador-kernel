@@ -4,11 +4,14 @@
 #kernel.py
 
 import os
+from random import randint
 
+from processo import Processo
 from gerenciadorMemoria import GerenciadorMemoria
 from memoriaSecundaria import MemoriaSecundaria
 from memoriaPrimaria import MemoriaPrimaria
 from substituicaoProcesso import SubstituicaoProcesso
+
 
 def menu():
     print(  "-------- Gerenciador de Memória --------".center(52) )
@@ -28,7 +31,17 @@ def menu():
     print("Você selecionou a opção " + str( menuSelecionado ) + ".\n")
 
     return menuSelecionado
-    
+
+def criarProcesso( idProcesso ):
+    processo = Processo()
+    processo.idProcesso = idProcesso
+    processo.tamanhoProcesso = randint( 100, 1024 )
+    processo.tempoExecucao = 2
+    processo.prioridade = randint( 0, 4 )
+    processo.tempoVida = randint( 1, 15 )
+    processo.nomeProcesso = str( idProcesso ) + "_" + str( processo.tamanhoProcesso ) + "_" + str( processo.prioridade ) + "_" + str( processo.tempoVida )
+
+    MemoriaSecundaria.armazenarProcesso( processo )
     
 if __name__ == '__main__':
 
