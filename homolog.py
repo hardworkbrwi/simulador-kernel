@@ -320,7 +320,10 @@ def escalonarProcessos():
         processo.prioridade = randint( 0, 4 )
         gerenciadorMemoria.adicionarProcessoMemoriaPrimaria( memoriaPrimaria, processo )
 
-    #processador.escalonarProcessos(memoriaPrimaria)
+    processador.montarTabelaDeExecucaoDeProcessos( memoriaPrimaria )
+    
+    if processador.escalonadorDeProcesso() != None:
+        print(processador.escalonadorDeProcesso().exibirInfoProcesso())
 
     #Validação
     memoriaPrimaria.exibirMemoriaPrimaria()
@@ -369,6 +372,6 @@ if __name__ == '__main__':
     #removeProcessoMemoriaPrimariaQuandoArquivoVazioTeste()
 
     #executarProcesso()
-    #escalonarProcessos()
+    escalonarProcessos()
 
-    gerarAdicionarNovoProcessoDiscoTeste()
+    #gerarAdicionarNovoProcessoDiscoTeste()

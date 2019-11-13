@@ -32,17 +32,25 @@ class Processador:
             processo = memoriaPrimaria.posicoesMemoria[ item ]
             self._tabelaDeExecucaoDeProcessos[ processo.prioridade ].append( processo )
             item = item + processo.tamanhoProcesso
-
-    #metodo incompleto
+            
     def escalonadorDeProcesso( self ):
         procurarProcesso = True
 
         while procurarProcesso and self._nivelAtualDePrioridade <= 4:
             if self.nivelAtualEstaVazia():
                 self._nivelAtualDePrioridade = self._nivelAtualDePrioridade + 1
+
+            elif self.nivelAtualEstaVazia() and self._nivelAtualDePrioridade == 4:
+                self._nivelAtualDePrioridade = self._nivelAtualDePrioridade + 1
+
+            else:
+                procurarProcesso = False
         
-        return self._tabelaDeExecucaoDeProcessos[ self._nivelAtualDePrioridade ][0]
-    
+        if self._nivelAtualDePrioridade < 5:
+            return self._tabelaDeExecucaoDeProcessos[ self._nivelAtualDePrioridade ][0]
+        else:
+            return None
+        
     def nivelAtualEstaVazia( self ):
         if len( self._tabelaDeExecucaoDeProcessos[ self._nivelAtualDePrioridade ] ) == 0:
             return True
