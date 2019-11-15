@@ -17,8 +17,9 @@ from kernel import criarProcesso
 
 def manipularArquivoDiscoTeste():    
     # Configuração
+    caminhoDisco = "disco.csv"
 
-    processo = MemoriaSecundaria.buscarProcesso()
+    processo = MemoriaSecundaria.buscarProcessoDisco( caminhoDisco )
     processo.exibirInfoProcesso()
     
     segmento = Segmento()
@@ -29,7 +30,7 @@ def manipularArquivoDiscoTeste():
     mapaBits = MapeamentoEncadeadoBits()
     mapaBits.adicionarSegmento( segmento )
 
-    processo1 = MemoriaSecundaria.buscarProcesso()
+    processo1 = MemoriaSecundaria.buscarProcessoDisco( caminhoDisco )
     processo1.exibirInfoProcesso()
     
     segmento1 = Segmento()
@@ -43,8 +44,8 @@ def manipularArquivoDiscoTeste():
 
     mapaBits.exibirMapaBits()
 
-    MemoriaSecundaria.armazenarProcesso( processo )
-    MemoriaSecundaria.armazenarProcesso( processo1 )
+    MemoriaSecundaria.armazenarProcesso( processo, caminhoDisco )
+    MemoriaSecundaria.armazenarProcesso( processo1, caminhoDisco )
 
     mapaBits.removerSegmento()
 
@@ -281,7 +282,8 @@ def removeProcessoMemoriaPrimariaQuandoArquivoVazioTeste():
     processo.tempoExecucao = 2
     processo.tempoVida = 4
 
-    processo1 = MemoriaSecundaria.buscarProcesso()
+    caminhoDisco = "disco.csv"
+    processo1 = MemoriaSecundaria.buscarProcessoDisco( caminhoDisco )
 
     gerenciadorMemoria = GerenciadorMemoria()
     

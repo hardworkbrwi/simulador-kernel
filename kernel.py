@@ -40,10 +40,13 @@ def criarProcesso( idProcesso ):
     processo.prioridade = randint( 0, 4 )
     processo.tempoVida = randint( 1, 15 )
     processo.nomeProcesso = str( idProcesso ) + "_" + str( processo.tamanhoProcesso ) + "_" + str( processo.prioridade ) + "_" + str( processo.tempoVida )
-
+    
     MemoriaSecundaria.armazenarProcesso( processo )
     
 if __name__ == '__main__':
+
+    # Caminho para o disco físico (arquivo)
+    caminhoDisco = "disco.csv"
 
     memoriaPrimaria = MemoriaPrimaria()
     TAMANHOPAGINA = 200
@@ -54,7 +57,7 @@ if __name__ == '__main__':
         gerenciadorMemoria = GerenciadorMemoria()
 
     else:
-        gerenciadorMemoria = GerenciadorMemoria( TAMANHOPAGINA )
+        gerenciadorMemoria = GerenciadorMemoria( TAMANHOPAGINA )    
     
     while( True ):
 
@@ -66,7 +69,7 @@ if __name__ == '__main__':
             pass
 
         elif( opcao == 2 ):
-            processo = MemoriaSecundaria.buscarProcesso()
+            processo = MemoriaSecundaria.buscarProcessoDisco( caminhoDisco )
             gerenciadorMemoria.adicionarProcessoMemoriaPrimaria( memoriaPrimaria, processo )
 
         elif( opcao == 3 ):

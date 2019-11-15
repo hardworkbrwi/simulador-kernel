@@ -11,12 +11,12 @@ class MemoriaSecundaria:
     """
 
     @staticmethod
-    def buscarProcesso():
+    def buscarProcessoDisco( caminhoDisco ):
         '''
-        Busca o primeiro processo na fila de processo contida no arquivo (disco) 
+        Busca o primeiro processo na fila de processo contida no arquivo (caminhoDisco) 
         '''
         try:
-            arquivo = open( 'disco.csv', 'r' )
+            arquivo = open( caminhoDisco, 'r' )
 
         except IOError as io:
             print( "Não foi possível abrir o arquivo {}".format( io ) )
@@ -31,7 +31,7 @@ class MemoriaSecundaria:
             if( tamanhoListaProcesso != 0 ):
                 processoStr = processosStr.pop(0)
 
-                MemoriaSecundaria._gravarDisco( processosStr )
+                MemoriaSecundaria._gravarDisco( processosStr, caminhoDisco )
 
                 try:
                     processo = MemoriaSecundaria._converterStringParaProcesso( processoStr )
@@ -42,12 +42,12 @@ class MemoriaSecundaria:
         return processo
 
     @staticmethod
-    def armazenarProcesso( processo ):
+    def armazenarProcesso( processo, caminhoDisco ):
         '''
-        Realoca o processo com execução incompleta no disco
+        Realoca o processo com execução incompleta no caminhoDisco
         '''
         try:
-            arquivo = open( 'disco.csv', 'r' )
+            arquivo = open( caminhoDisco, 'r' )
             #arquivo = open( 'discorepositorio.csv', 'r' )
             
 
@@ -59,15 +59,15 @@ class MemoriaSecundaria:
             processoRealocado = MemoriaSecundaria._converterProcessoParaString( processo )
             processosStr.append( processoRealocado )            
 
-            MemoriaSecundaria._gravarDisco( processosStr )
+            MemoriaSecundaria._gravarDisco( processosStr, caminhoDisco )
         
         finally:
             arquivo.close()
 
     @classmethod
-    def _gravarDisco( cls, processosStr ):
+    def _gravarDisco( cls, processosStr, caminhoDisco ):
         try:
-            arquivo = open( 'disco.csv', 'w' )
+            arquivo = open( caminhoDisco, 'w' )
             #arquivo = open( 'discorepositorio.csv', "w" )
 
         except IOError as io:
