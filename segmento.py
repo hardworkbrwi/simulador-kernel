@@ -10,10 +10,11 @@ class Segmento:
     Posicao da lista do mapa de bits
     '''
 
-    __slots__ = [ "_processo", "_posicaoInicial", "_quantidadePosicoes" ]
+    __slots__ = [ "_processo", "_posicaoInicial", "_quantidadePosicoes", "_classeSubstituicao" ]
 
     def __init__( self ):
         self._quantidadePosicoes = 0
+        self._classeSubstituicao = -1
 
     @property
     def processo( self ):
@@ -38,4 +39,24 @@ class Segmento:
     @quantidadePosicoes.setter
     def quantidadePosicoes( self, quantidadePosicoes ):
         self._quantidadePosicoes = quantidadePosicoes
+
+    @property
+    def classeSubstituicao( self ):
+        return self._classeSubstituicao
+
+    def definirClasseSubstituicao( self, processoBitR, processoBitM ):
+        if( processoBitR == 0 and processoBitM == 0 ):
+            self._classeSubstituicao = 0
+        
+        elif( processoBitR == 0 and processoBitM == 1 ):
+            self._classeSubstituicao = 1
+        
+        elif( processoBitR == 1 and processoBitM == 0 ):
+            self._classeSubstituicao = 2
+
+        elif( processoBitR == 1 and processoBitM == 1 ):
+            self._classeSubstituicao == 3
+
+        else:
+            self._classeSubstituicao = -1
     

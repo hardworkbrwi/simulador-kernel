@@ -27,12 +27,14 @@ class Processo:
     :field tempoVida: define o tempo de vida útil do processo
     '''
 
-    __slots__ = [ "_idProcesso", "_nomeProcesso", "_tamanhoProcesso", "_tempoExecucao", "_prioridade", "_tempoVida" ]
+    __slots__ = [ "_idProcesso", "_nomeProcesso", "_tamanhoProcesso", "_tempoExecucao", "_prioridade", "_tempoVida". "_bitR", "_bitM" ]
 
     def __init__( self, tempoExecucao = 2, prioridade = 4 ):
         self._nomeProcesso = ""
         self._tempoExecucao = tempoExecucao
         self._prioridade = prioridade
+        self._bitR = 0
+        self._bitM = 0
 
     def executar( self ):
         '''
@@ -90,6 +92,22 @@ class Processo:
     @tempoVida.setter
     def tempoVida( self, tempoVida ):
         self._tempoVida = int( tempoVida )
+
+    @property
+    def bitR( self ):
+        return self._bitR
+    
+    @bitR.setter
+    def bitR( self, bitR ):
+        self._bitR = int( bitR )
+
+    @property
+    def bitM( self ):
+        return self._bitM
+    
+    @bitM.setter
+    def bitM( self, bitM ):
+        self._bitM = int( bitM )
     
 
     
