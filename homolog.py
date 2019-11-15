@@ -17,6 +17,7 @@ from testes.gerenciadorMemoriaTest import GerenciadorMemoriaTest
 
 from testes.processoTest import ProcessoTest
 from testes.segmentoTest import SegmentoTest
+from testes.mapeamentoEncadeadoBitsTest import MapeamentoEncadeadoBitsTest
 
 def manipularArquivoDiscoTeste():    
     # Configuração
@@ -365,7 +366,7 @@ def gerarAdicionarNovoProcessoDiscoTeste():
     processoEsperado.exibirInfoProcesso()
 
 if __name__ == '__main__':
-
+    '''
     ProcessoTest.executarTest()
     ProcessoTest.nomeProcessoTest()
     ProcessoTest.exibirProcessoTest()
@@ -378,3 +379,19 @@ if __name__ == '__main__':
     SegmentoTest.definirClasseSubstituicaoPaginaBitR1BitMIndefinidoTest()
     SegmentoTest.definirClasseSubstituicaoPaginaBitRIndefinidoBitM0Test()
     SegmentoTest.definirClasseSubstituicaoPaginaBitRIndefinidoBitM1Test()
+
+    MapeamentoEncadeadoBitsTest.adicionarSegmentoTest()
+    MapeamentoEncadeadoBitsTest.adicionarSegmentoVericarIndiceMemoriaLivreAtualizadoTest()
+    MapeamentoEncadeadoBitsTest.adicionarSegmentoTamanhoProcessoTest()
+    MapeamentoEncadeadoBitsTest.adicionarSegmentoTamanhoPaginaTest()
+    '''
+    MapeamentoEncadeadoBitsTest.removerSegmentoIndice0Test()
+    MapeamentoEncadeadoBitsTest.removerSegmentoIndice1Test()
+    MapeamentoEncadeadoBitsTest.removerSegmentoIndice2Test()
+    MapeamentoEncadeadoBitsTest.removerSegmentoIndice3Test()
+
+    MapeamentoEncadeadoBitsTest.buscarSegmentoPorClasseSubstituicao0Test()
+    MapeamentoEncadeadoBitsTest.buscarSegmentoPorClasseSubstituicao1Test()
+    MapeamentoEncadeadoBitsTest.buscarSegmentoPorClasseSubstituicao2Test()
+    MapeamentoEncadeadoBitsTest.buscarSegmentoPorClasseSubstituicao3Test()
+    MapeamentoEncadeadoBitsTest.buscarSegmentoPorClasseSubstituicaoIndeterminadaTest()
