@@ -16,9 +16,11 @@ class MemoriaPrimaria:
         self._posicoesMemoria = []
         
 
-    def adicionarProcessoMemoria( self, processo, posicaoInicial ):
+    def adicionarProcessoMemoria( self, processo, posicaoInicial, tamanhoPagina = None ):
         espacoUtilizadoMemoria = len( self._posicoesMemoria )
-        tamanhoProcessoNovo = processo.tamanhoProcesso
+        
+        if( tamanhoPagina == None ):
+            tamanhoProcessoNovo = processo.tamanhoProcesso
 
         if espacoUtilizadoMemoria + tamanhoProcessoNovo <= self._tamanhoMemoria:
             posicaoFinal = posicaoInicial + tamanhoProcessoNovo
@@ -32,10 +34,11 @@ class MemoriaPrimaria:
 
         
 
-    def liberarMemoria( self, tamanhoPagina = -1 ):
+    def liberarMemoria( self, tamanhoPagina = None ):
+        # ALTERAR PARA USAR MÉTODO DE SUBSTITUIÇÃO DE PÁGINA LRU
         processoASerRemovido = self._posicoesMemoria[0]
 
-        if( tamanhoPagina == -1 ):
+        if( tamanhoPagina == None ):
             tamanhoProcessoASerRemovido = processoASerRemovido.tamanhoProcesso
 
         else:
@@ -44,7 +47,7 @@ class MemoriaPrimaria:
         for i in range( tamanhoProcessoASerRemovido - 1, -1, -1 ):
             del( self._posicoesMemoria[i] )
         
-        processoASerRemovido.tempoVida -= processoASerRemovido.tempoExecucao
+        #processoASerRemovido.tempoVida -= processoASerRemovido.tempoExecucao
 
         return processoASerRemovido
 
