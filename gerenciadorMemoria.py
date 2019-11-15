@@ -110,7 +110,16 @@ class GerenciadorMemoria:
         :int tempoVida:
         :field tempoVida: define o tempo de vida útil do processo
         '''
-        pass
+        indiceSegmento = -1
+        processoASerRemovido = None
+        for i in range( 0, 4 ):
+            indiceSegmento = self._mapaBits.buscarSegmentoPorClasseSubstiuticao( i )
+            if( indiceSegmento != -1 ):
+                segmentoProcessoASerRemovido = self._mapaBits[indiceSegmento]
+                processoASerRemovido = segmentoProcessoASerRemovido.processo
+
+        return processoASerRemovido
+
 
 
     

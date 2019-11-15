@@ -5,7 +5,6 @@
 
 from random import randint
 
-from processo import Processo
 from mapeamentoEncadeadoBits import MapeamentoEncadeadoBits
 from segmento import Segmento
 from memoriaPrimaria import MemoriaPrimaria
@@ -13,7 +12,10 @@ from memoriaSecundaria import MemoriaSecundaria
 from gerenciadorMemoria import GerenciadorMemoria
 from processador import Processador
 from kernel import criarProcesso
+from processo import Processo
+from testes.gerenciadorMemoriaTest import GerenciadorMemoriaTest
 
+from testes.processoTest import ProcessoTest
 
 def manipularArquivoDiscoTeste():    
     # Configuração
@@ -360,6 +362,8 @@ def gerarAdicionarNovoProcessoDiscoTeste():
     # Validação
     processoEsperado = MemoriaSecundaria._converterStringParaProcesso( processoStr )
     processoEsperado.exibirInfoProcesso()
+
+#def buscarProcessoASerRemovidoTeste()
     
 if __name__ == '__main__':
     #manipularArquivoDiscoTeste()
@@ -379,4 +383,10 @@ if __name__ == '__main__':
     #executarProcesso()
     #escalonarProcessos()
 
-    gerarAdicionarNovoProcessoDiscoTeste()
+    #gerarAdicionarNovoProcessoDiscoTeste()
+    #gerenciadoMemoriaTest = GerenciadorMemoriaTest()
+    #gerenciadoMemoriaTest.buscarProcessoASerRemovidoTest()
+
+    ProcessoTest.executarTest()
+    ProcessoTest.nomeProcessoTest()
+    ProcessoTest.exibirProcessoTest()

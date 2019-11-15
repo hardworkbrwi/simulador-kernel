@@ -43,6 +43,15 @@ class MapeamentoEncadeadoBits:
         self._atualizarIndiceInicialSegmento( quantidadePosicoes )
         self._atualizarIndiceMemoriaLivre( False, quantidadePosicoes )
 
+    def buscarSegmentoPorClasseSubstiuticao( self, classeSubstituicao ):
+        segmentoEncontrado = -1
+        for indice, segmento in enumerate( self._listaSegmentos ):
+            if( segmento.classeSubstituicao == classeSubstituicao ):
+                return indice
+        
+        return segmentoEncontrado
+
+
     def exibirMapaBits( self ):
         """
 		Exibe a lista de segmentos do mapara de bits

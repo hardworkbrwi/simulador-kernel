@@ -17,22 +17,37 @@ class Processo:
     :int idProcesso:
     :field idProcesso: identificador único do processo
 
+    :String nomeProcesso:
+    :field nomeProcesso: define o nome do processo padronizado por idProcesso+tamanhoProcesso+priorida+tempoVida
+
     :int tamanhoProcesso:
     :field tamanhoProcesso: define o tamanho do processo em kilobytes
 
     :int tempoExecucao:
     :field tempoExecucao: define o tempo ao qual o processo deverá executar em CPU
 
+    :int prioridade:
+    :field prioridade: define a prioridade de escalonamento para execução no processador
+
     :int tempoVida:
     :field tempoVida: define o tempo de vida útil do processo
+
+    :byte bitR:
+    :field bitR: indentifica se a página do processo foi referenciada ou não
+
+    :byte bitM:
+    :field bitM: identificador se a página do processo foi modificada ou não
     '''
 
-    __slots__ = [ "_idProcesso", "_nomeProcesso", "_tamanhoProcesso", "_tempoExecucao", "_prioridade", "_tempoVida". "_bitR", "_bitM" ]
+    __slots__ = [ "_idProcesso", "_nomeProcesso", "_tamanhoProcesso", "_tempoExecucao", "_prioridade", "_tempoVida", "_bitR", "_bitM" ]
 
     def __init__( self, tempoExecucao = 2, prioridade = 4 ):
+        self._idProcesso = 0
         self._nomeProcesso = ""
+        self._tamanhoProcesso = 0
         self._tempoExecucao = tempoExecucao
         self._prioridade = prioridade
+        self._tempoVida = 0
         self._bitR = 0
         self._bitM = 0
 
@@ -43,7 +58,7 @@ class Processo:
         print( "Processo {} está executando.".format( self._idProcesso ) )
 
     def exibirInfoProcesso( self ):
-        print( "ID: {}\nNome Processo: {}\nTamanho: {}\nTempo Execução: {}\nPrioridade: {}\nTempo Vida: {}".format( self._idProcesso, self._nomeProcesso, self._tamanhoProcesso, self._tempoExecucao, self._prioridade ,self._tempoVida ) )
+        print( "ID: {}\nNome Processo: {}\nTamanho: {}\nTempo Execução: {}\nPrioridade: {}\nTempo Vida: {}\nBitR: {}\nBitM: {}".format( self._idProcesso, self._nomeProcesso, self._tamanhoProcesso, self._tempoExecucao, self._prioridade ,self._tempoVida, self._bitR, self._bitM ) )
 
     @property
     def idProcesso( self ):
@@ -52,14 +67,14 @@ class Processo:
     @idProcesso.setter
     def idProcesso( self, idProcesso ):
         self._idProcesso = int( idProcesso )
+        self._definirNomeProcesso()
 
     @property
     def nomeProcesso( self ):
         return self._nomeProcesso
     
-    @nomeProcesso.setter
-    def nomeProcesso( self, nomeProcesso ):
-        self._nomeProcesso = int( nomeProcesso )    
+    def _definirNomeProcesso( self ):
+        self._nomeProcesso = str( self._idProcesso ) + str( self._tamanhoProcesso ) + str( self._prioridade ) + str( self._tempoVida )
 
     @property
     def tamanhoProcesso( self ):
@@ -68,6 +83,7 @@ class Processo:
     @tamanhoProcesso.setter
     def tamanhoProcesso( self, tamanhoProcesso ):
         self._tamanhoProcesso = int( tamanhoProcesso )
+        self._definirNomeProcesso()
 
     @property
     def tempoExecucao( self ):
@@ -84,6 +100,7 @@ class Processo:
     @prioridade.setter
     def prioridade( self, prioridade ):
         self._prioridade = int( prioridade )
+        self._definirNomeProcesso()
     
     @property
     def tempoVida( self ):
@@ -92,6 +109,7 @@ class Processo:
     @tempoVida.setter
     def tempoVida( self, tempoVida ):
         self._tempoVida = int( tempoVida )
+        self._definirNomeProcesso()
 
     @property
     def bitR( self ):
