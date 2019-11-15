@@ -337,13 +337,16 @@ def gerarAdicionarNovoProcessoDiscoTeste():
     idProcesso = randint( 5000, 6000 )
     processosStr = []
     processoStr = ""
-    processo = Processo()        
+    processoEsperado = Processo()
+
+    caminhoDisco = "discorepositorio.csv"    
 
     # Execução
-    criarProcesso( idProcesso )
+    processoAArmazenar = criarProcesso( idProcesso )
+    MemoriaSecundaria.armazenarProcesso( processoAArmazenar, caminhoDisco )
 
     try:
-        disco = open( "discorepositorio.csv", "r" )
+        disco = open( caminhoDisco, "r" )
 
     except IOError as io:
         print( "Não foi possível abrir o arquivo {}".format( io ) )
@@ -355,8 +358,8 @@ def gerarAdicionarNovoProcessoDiscoTeste():
     processoStr = processosStr[-1]
 
     # Validação
-    processo = MemoriaSecundaria._converterStringParaProcesso( processoStr )
-    processo.exibirInfoProcesso()
+    processoEsperado = MemoriaSecundaria._converterStringParaProcesso( processoStr )
+    processoEsperado.exibirInfoProcesso()
     
 if __name__ == '__main__':
     #manipularArquivoDiscoTeste()
@@ -374,6 +377,6 @@ if __name__ == '__main__':
     #removeProcessoMemoriaPrimariaQuandoArquivoVazioTeste()
 
     #executarProcesso()
-    escalonarProcessos()
+    #escalonarProcessos()
 
-    #gerarAdicionarNovoProcessoDiscoTeste()
+    gerarAdicionarNovoProcessoDiscoTeste()

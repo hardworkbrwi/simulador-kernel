@@ -48,8 +48,6 @@ class MemoriaSecundaria:
         '''
         try:
             arquivo = open( caminhoDisco, 'r' )
-            #arquivo = open( 'discorepositorio.csv', 'r' )
-            
 
         except IOError as io:
             print( "Não foi possível abrir o arquivo {}".format( io ) )
@@ -68,7 +66,6 @@ class MemoriaSecundaria:
     def _gravarDisco( cls, processosStr, caminhoDisco ):
         try:
             arquivo = open( caminhoDisco, 'w' )
-            #arquivo = open( 'discorepositorio.csv', "w" )
 
         except IOError as io:
             print( "Não foi possível abrir o arquivo {}".format( io ) )
@@ -97,15 +94,17 @@ class MemoriaSecundaria:
 
             try:
                 quantidadeItensInfoProcesso = len( infoProcesso )
-                if( quantidadeItensInfoProcesso != 4 ):
+                if( quantidadeItensInfoProcesso != 6 ):
                     raise ValueError
 
                 else:
                     processo = Processo()
                     processo.idProcesso = infoProcesso[0]
-                    processo.tamanhoProcesso = infoProcesso[1]
-                    processo.tempoExecucao = infoProcesso[2]
-                    processo.tempoVida = infoProcesso[3]
+                    processo.nomeProcesso = infoProcesso[1]
+                    processo.tamanhoProcesso = infoProcesso[2]
+                    processo.tempoExecucao = infoProcesso[3]
+                    processo.prioridade = infoProcesso[4]
+                    processo.tempoVida = infoProcesso[5]
 
                     return processo
 
@@ -130,8 +129,10 @@ class MemoriaSecundaria:
         
         processoStr = []
         processoStr.append( str(processo.idProcesso) + VIRGULA )
+        processoStr.append( str(processo.nomeProcesso) + VIRGULA )
         processoStr.append( str(processo.tamanhoProcesso) + VIRGULA )
         processoStr.append( str(processo.tempoExecucao) + VIRGULA )
+        processoStr.append( str(processo.prioridade) + VIRGULA )
         processoStr.append( str(processo.tempoVida) + QUEBRA_LINHA)
 
         return processoStr
