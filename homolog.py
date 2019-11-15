@@ -16,6 +16,7 @@ from processo import Processo
 from testes.gerenciadorMemoriaTest import GerenciadorMemoriaTest
 
 from testes.processoTest import ProcessoTest
+from testes.segmentoTest import SegmentoTest
 
 def manipularArquivoDiscoTeste():    
     # Configuração
@@ -363,30 +364,17 @@ def gerarAdicionarNovoProcessoDiscoTeste():
     processoEsperado = MemoriaSecundaria._converterStringParaProcesso( processoStr )
     processoEsperado.exibirInfoProcesso()
 
-#def buscarProcessoASerRemovidoTeste()
-    
 if __name__ == '__main__':
-    #manipularArquivoDiscoTeste()
-    #adicionarUmProcessoMemoriaPrimariaTeste()
-    #adicionarDoisProcessoMemoriaPrimariaTeste()
-    #adicionarTresProcessoMemoriaPrimariaTeste()
-    #adicionarProcessosAcimaCapacidadeMemoriaPrimariaTeste()
-
-    #removerProcessoMemoriaPrimariaTeste()
-
-    #adicionarProcessoGerenciadorMemoriaTeste()
-
-    #adicionarProcessosMaiorGerenciadorMemoria_PrimeiroProcessoNaoRetornaAoDiscoTeste()
-
-    #removeProcessoMemoriaPrimariaQuandoArquivoVazioTeste()
-
-    #executarProcesso()
-    #escalonarProcessos()
-
-    #gerarAdicionarNovoProcessoDiscoTeste()
-    #gerenciadoMemoriaTest = GerenciadorMemoriaTest()
-    #gerenciadoMemoriaTest.buscarProcessoASerRemovidoTest()
 
     ProcessoTest.executarTest()
     ProcessoTest.nomeProcessoTest()
     ProcessoTest.exibirProcessoTest()
+
+    SegmentoTest.definirClasseSubstituicaoPaginaClasse0Test()
+    SegmentoTest.definirClasseSubstituicaoPaginaClasse1Test()
+    SegmentoTest.definirClasseSubstituicaoPaginaClasse2Test()
+    SegmentoTest.definirClasseSubstituicaoPaginaClasse3Test()
+    SegmentoTest.definirClasseSubstituicaoPaginaBitR0BitMIndefinidoTest()
+    SegmentoTest.definirClasseSubstituicaoPaginaBitR1BitMIndefinidoTest()
+    SegmentoTest.definirClasseSubstituicaoPaginaBitRIndefinidoBitM0Test()
+    SegmentoTest.definirClasseSubstituicaoPaginaBitRIndefinidoBitM1Test()

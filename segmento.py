@@ -10,11 +10,11 @@ class Segmento:
     Posicao da lista do mapa de bits
     '''
 
-    __slots__ = [ "_processo", "_posicaoInicial", "_quantidadePosicoes", "_classeSubstituicao" ]
+    __slots__ = [ "_processo", "_posicaoInicial", "_quantidadePosicoes", "_classeSubstituicaoPagina" ]
 
     def __init__( self ):
         self._quantidadePosicoes = 0
-        self._classeSubstituicao = -1
+        self._classeSubstituicaoPagina = -1
 
     @property
     def processo( self ):
@@ -42,21 +42,21 @@ class Segmento:
 
     @property
     def classeSubstituicao( self ):
-        return self._classeSubstituicao
+        return self._classeSubstituicaoPagina
 
-    def definirClasseSubstituicao( self, processoBitR, processoBitM ):
-        if( processoBitR == 0 and processoBitM == 0 ):
-            self._classeSubstituicao = 0
+    def definirClasseSubstituicaoPagina( self ):
+        if( self._processo.bitR == 0 and self._processo.bitM == 0 ):
+            self._classeSubstituicaoPagina = 0
         
-        elif( processoBitR == 0 and processoBitM == 1 ):
-            self._classeSubstituicao = 1
+        elif( self._processo.bitR == 0 and self._processo.bitM == 1 ):
+            self._classeSubstituicaoPagina = 1
         
-        elif( processoBitR == 1 and processoBitM == 0 ):
-            self._classeSubstituicao = 2
+        elif( self._processo.bitR == 1 and self._processo.bitM == 0 ):
+            self._classeSubstituicaoPagina = 2
 
-        elif( processoBitR == 1 and processoBitM == 1 ):
-            self._classeSubstituicao == 3
+        elif( self._processo.bitR == 1 and self._processo.bitM == 1 ):
+            self._classeSubstituicaoPagina = 3
 
         else:
-            self._classeSubstituicao = -1
+            self._classeSubstituicaoPagina = -1
     
