@@ -18,6 +18,7 @@ from testes.gerenciadorMemoriaTest import GerenciadorMemoriaTest
 from testes.processoTest import ProcessoTest
 from testes.segmentoTest import SegmentoTest
 from testes.mapeamentoEncadeadoBitsTest import MapeamentoEncadeadoBitsTest
+from testes.memoriaSecundariaTest import MemoriaSecundariaTest
 
 def manipularArquivoDiscoTeste():    
     # Configuração
@@ -384,7 +385,6 @@ if __name__ == '__main__':
     MapeamentoEncadeadoBitsTest.adicionarSegmentoVericarIndiceMemoriaLivreAtualizadoTest()
     MapeamentoEncadeadoBitsTest.adicionarSegmentoTamanhoProcessoTest()
     MapeamentoEncadeadoBitsTest.adicionarSegmentoTamanhoPaginaTest()
-    '''
     MapeamentoEncadeadoBitsTest.removerSegmentoIndice0Test()
     MapeamentoEncadeadoBitsTest.removerSegmentoIndice1Test()
     MapeamentoEncadeadoBitsTest.removerSegmentoIndice2Test()
@@ -395,3 +395,7 @@ if __name__ == '__main__':
     MapeamentoEncadeadoBitsTest.buscarSegmentoPorClasseSubstituicao2Test()
     MapeamentoEncadeadoBitsTest.buscarSegmentoPorClasseSubstituicao3Test()
     MapeamentoEncadeadoBitsTest.buscarSegmentoPorClasseSubstituicaoIndeterminadaTest()
+    '''
+
+    MemoriaSecundariaTest.buscarProcessoDiscoTest()
+    MemoriaSecundariaTest.buscarProcessoNivelAltoPrioridadeDiscoTest()

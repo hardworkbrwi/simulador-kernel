@@ -29,7 +29,8 @@ class MemoriaSecundaria:
 
             tamanhoListaProcesso = len( processosStr )
             if( tamanhoListaProcesso != 0 ):
-                processoStr = processosStr.pop(0)
+                indicePrioridadeMaisAlta = MemoriaSecundaria._buscarProcessoNivelAltoPrioridadeDisco( processosStr )
+                processoStr = processosStr.pop( indicePrioridadeMaisAlta )
 
                 MemoriaSecundaria._gravarDisco( processosStr, caminhoDisco )
 
@@ -61,6 +62,18 @@ class MemoriaSecundaria:
         
         finally:
             arquivo.close()
+
+    @classmethod
+    def _buscarProcessoNivelAltoPrioridadeDisco( cls, processosStr ):
+        indiceAtualPrioridade = 0
+        nivelAtualPrioridade = 4
+        for indice, processoStr in enumerate( processosStr ):
+            processo = cls._converterStringParaProcesso( processoStr )
+            if( processo.prioridade < nivelAtualPrioridade ):
+                indiceAtualPrioridade = indice
+                nivelAtualPrioridade = processo.prioridade
+
+        return indiceAtualPrioridade
 
     @classmethod
     def _gravarDisco( cls, processosStr, caminhoDisco ):
@@ -100,7 +113,7 @@ class MemoriaSecundaria:
                 else:
                     processo = Processo()
                     processo.idProcesso = infoProcesso[0]
-                    processo.nomeProcesso = infoProcesso[1]
+                    #processo.nomeProcesso = infoProcesso[1]
                     processo.tamanhoProcesso = infoProcesso[2]
                     processo.tempoExecucao = infoProcesso[3]
                     processo.prioridade = infoProcesso[4]
