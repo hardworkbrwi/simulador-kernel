@@ -12,7 +12,8 @@ class Processador:
         self._tabelaDeExecucaoDeProcessos = [ [] for _ in range(5) ]
         self._nivelAtualDePrioridade = 0
 
-    def executar( self, processo ):
+    def executar( self ):
+        processo = self.escalonadorDeProcesso()
         tempoDeVidaInicial = processo.tempoVida
         processo.tempoVida = processo.tempoVida - 2
 
@@ -32,7 +33,7 @@ class Processador:
             processo = memoriaPrimaria.posicoesMemoria[ item ]
             self._tabelaDeExecucaoDeProcessos[ processo.prioridade ].append( processo )
             item = item + processo.tamanhoProcesso
-            
+
     def escalonadorDeProcesso( self ):
         procurarProcesso = True
 
@@ -47,7 +48,7 @@ class Processador:
                 procurarProcesso = False
         
         if self._nivelAtualDePrioridade < 5:
-            return self._tabelaDeExecucaoDeProcessos[ self._nivelAtualDePrioridade ][0]
+            return self._tabelaDeExecucaoDeProcessos[ self._nivelAtualDePrioridade ].pop(0)
         else:
             return None
         
@@ -56,6 +57,17 @@ class Processador:
             return True
         else: 
             return False
+    
+    def exibirTabelaDeExecucaoDeProcessos( self ):
+        contadorDeNivel = 0
+
+        for processos in self._tabelaDeExecucaoDeProcessos:
+            print( "Processos com nivel de prioridade: ", contadorDeNivel )
+            for processo in processos:
+                processo.exibirInfoProcesso()
+                print("\n")
+            print("---------------------------------")
+            contadorDeNivel = contadorDeNivel + 1
 
     def atualizarTabelaDeExecucaoDeProcessos( self ):
         

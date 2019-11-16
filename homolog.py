@@ -303,7 +303,7 @@ def executarProcesso():
 
     processador = Processador()
 
-    print(processador.executar(processo))
+    print( processador.executar() )
     
 def escalonarProcessos():
     
@@ -321,9 +321,12 @@ def escalonarProcessos():
         gerenciadorMemoria.adicionarProcessoMemoriaPrimaria( memoriaPrimaria, processo )
 
     processador.montarTabelaDeExecucaoDeProcessos( memoriaPrimaria )
-    
+    processador.exibirTabelaDeExecucaoDeProcessos()
+
     if processador.escalonadorDeProcesso() != None:
         print(processador.escalonadorDeProcesso().exibirInfoProcesso())
+
+    processador.exibirTabelaDeExecucaoDeProcessos()
 
     #Validação
     memoriaPrimaria.exibirMemoriaPrimaria()
