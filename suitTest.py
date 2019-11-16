@@ -410,4 +410,4 @@ if __name__ == '__main__':
     '''
 
     MemoriaPrimariaTest.liberarMemoria3ProcessosIndice1TamanhoTotalProcessoTest()
-    MemoriaPrimariaTest.liberarMemoria3ProcessosIndice1TamanhoPaginaTest()
+    #MemoriaPrimariaTest.liberarMemoria3ProcessosIndice1TamanhoPaginaTest()

@@ -141,6 +141,8 @@ class MemoriaPrimariaTest:
         caminhoDisco = "discorepositorio.csv"        
 
         processo = MemoriaSecundaria.buscarProcessoDisco( caminhoDisco )
+        processo.bitR = 0
+        processo.bitM = 0
         posicaoInicial = mapaBits.indiceMemoriaLivre
         memoriaPrimaria.adicionarProcessoMemoria( processo, posicaoInicial )
 
@@ -148,10 +150,13 @@ class MemoriaPrimariaTest:
         segmento.processo = processo
         segmento.posicaoInicial = posicaoInicial
         segmento.quantidadePosicoes = processo.tamanhoProcesso
+        segmento.definirClasseSubstituicaoPagina()
 
         mapaBits.adicionarSegmento( segmento )
 
         processo1 = MemoriaSecundaria.buscarProcessoDisco( caminhoDisco )
+        processo1.bitR = 1
+        processo1.bitM = 1
         posicaoInicial = mapaBits.indiceMemoriaLivre
         memoriaPrimaria.adicionarProcessoMemoria( processo1, posicaoInicial )
 
@@ -159,10 +164,13 @@ class MemoriaPrimariaTest:
         segmento1.processo = processo1
         segmento1.posicaoInicial = posicaoInicial
         segmento1.quantidadePosicoes = processo1.tamanhoProcesso
+        segmento1.definirClasseSubstituicaoPagina()
 
         mapaBits.adicionarSegmento( segmento1 )        
 
         processo2 = MemoriaSecundaria.buscarProcessoDisco( caminhoDisco )
+        processo2.bitR = 0
+        processo2.bitM = 0
         posicaoInicial = mapaBits.indiceMemoriaLivre
         memoriaPrimaria.adicionarProcessoMemoria( processo2, posicaoInicial )
 
@@ -170,6 +178,7 @@ class MemoriaPrimariaTest:
         segmento2.processo = processo2
         segmento2.posicaoInicial = posicaoInicial
         segmento2.quantidadePosicoes = processo2.tamanhoProcesso
+        segmento2.definirClasseSubstituicaoPagina()
 
         mapaBits.adicionarSegmento( segmento2 )
 
