@@ -63,6 +63,7 @@ class GerenciadorMemoria:
         self._mapaBits.adicionarSegmento( segmento )
 
     def _liberarEspacoMemoriaPrimaria( self, memoriaPrimaria, espacoASerLiberado ):
+        listaProcessosRemovidos = []
         quantidadePosicoesOcupadasMemoria = len( memoriaPrimaria.posicoesMemoria )
         tamanhoMaxMemoria = memoriaPrimaria.tamanhoMemoria
 
@@ -73,7 +74,8 @@ class GerenciadorMemoria:
             if( indicePosicaoInicialProcessoASerRemovidoMemoria != -1 ):
                 idProcessoASerRemovido = memoriaPrimaria.posicoesMemoria[ indicePosicaoInicialProcessoASerRemovidoMemoria ]
 
-                memoriaPrimaria.liberarMemoria( indicePosicaoInicialProcessoASerRemovidoMemoria, espacoASerLiberado )
+                processoRemovido = memoriaPrimaria.liberarMemoria( indicePosicaoInicialProcessoASerRemovidoMemoria, espacoASerLiberado )
+                listaProcessosRemovidos.append( processoRemovido )
             
                 indiceSegmentoASerRemovido = self._mapaBits.buscarIndiceSegmentoPorIdProcesso( idProcessoASerRemovido )
                 self._mapaBits.removerSegmento( indiceSegmentoASerRemovido )
@@ -82,6 +84,8 @@ class GerenciadorMemoria:
 
             else:
                 print( "Não foram encontradas paginas com classes de substituição definidas." )
+            
+        return listaProcessosRemovidos
 
         # Fim de remover segmento
 
