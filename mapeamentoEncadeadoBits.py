@@ -51,6 +51,20 @@ class MapeamentoEncadeadoBits:
         
         return posicaoInicialSegmentoEncontrado
 
+    def buscarIndiceSegmentoPorIdProcesso( self, idProcessoBuscado ):
+        idProcessoAtual = -1
+        for indice, segmento in enumerate( self._listaSegmentos ):
+            processoAtual = segmento.processo
+            idProcessoAtual = processoAtual.idProcesso
+            if( idProcessoAtual == idProcessoBuscado ):
+                return indice
+            
+        return idProcessoAtual
+
+    def atualizarClassesSubstituicaoPagina( self ):
+        for segmento in self._listaSegmentos:
+            segmento.definirClasseSubstituicaoPagina()
+
     def exibirMapaBits( self ):
         """
 		Exibe a lista de segmentos do mapara de bits
