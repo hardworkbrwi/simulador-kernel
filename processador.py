@@ -48,6 +48,7 @@ class Processador:
         
         if self._nivelAtualDePrioridade < 5:
             return self._tabelaDeExecucaoDeProcessos[ self._nivelAtualDePrioridade ][0]
+            #### INSERIR FUNÇÃO PARA REDUZIR BITR DE TODOS OS OUTROS PROCESSOS NÃO SELECIONADOS ####
         else:
             return None
         
