@@ -49,8 +49,8 @@ def manipularArquivoDiscoTeste():
 
     mapaBits.exibirMapaBits()
 
-    MemoriaSecundaria.armazenarProcesso( processo, caminhoDisco )
-    MemoriaSecundaria.armazenarProcesso( processo1, caminhoDisco )
+    MemoriaSecundaria.armazenarProcessoDisco( processo, caminhoDisco )
+    MemoriaSecundaria.armazenarProcessoDisco( processo1, caminhoDisco )
 
     mapaBits.removerSegmento()
 
@@ -348,7 +348,7 @@ def gerarAdicionarNovoProcessoDiscoTeste():
 
     # Execução
     processoAArmazenar = criarProcesso( idProcesso )
-    MemoriaSecundaria.armazenarProcesso( processoAArmazenar, caminhoDisco )
+    MemoriaSecundaria.armazenarProcessoDisco( processoAArmazenar, caminhoDisco )
 
     try:
         disco = open( caminhoDisco, "r" )
@@ -399,3 +399,4 @@ if __name__ == '__main__':
 
     MemoriaSecundariaTest.buscarProcessoDiscoTest()
     MemoriaSecundariaTest.buscarProcessoNivelAltoPrioridadeDiscoTest()
+    MemoriaSecundariaTest.armazenarProcessoDiscoTest()

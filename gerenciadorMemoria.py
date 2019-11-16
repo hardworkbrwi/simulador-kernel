@@ -97,7 +97,7 @@ class GerenciadorMemoria:
                 tempoVidaProcessoRemovido = processoRemovido.tempoVida
 
                 if( tempoVidaProcessoRemovido > 0 ):
-                    MemoriaSecundaria.armazenarProcesso( processoRemovido )
+                    MemoriaSecundaria.armazenarProcessoDisco( processoRemovido )
 
                 quantidadePosicoesOcupadasMemoria = len( memoriaPrimaria.posicoesMemoria )  
 

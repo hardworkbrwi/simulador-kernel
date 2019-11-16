@@ -68,7 +68,7 @@ if __name__ == '__main__':
 
         if( opcao == 1 ):
             novoProcesso = criarProcesso( contadorIdProcesso )
-            MemoriaSecundaria.armazenarProcesso( novoProcesso, caminhoDisco )
+            MemoriaSecundaria.armazenarProcessoDisco( novoProcesso, caminhoDisco )
             contadorIdProcesso += 1
 
         elif( opcao == 2 ):

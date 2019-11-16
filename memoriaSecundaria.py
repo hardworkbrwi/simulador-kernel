@@ -43,7 +43,7 @@ class MemoriaSecundaria:
         return processo
 
     @staticmethod
-    def armazenarProcesso( processo, caminhoDisco ):
+    def armazenarProcessoDisco( processo, caminhoDisco ):
         '''
         Realoca o processo com execução incompleta no caminhoDisco
         '''
