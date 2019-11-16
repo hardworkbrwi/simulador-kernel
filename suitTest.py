@@ -20,6 +20,7 @@ from testes.segmentoTest import SegmentoTest
 from testes.mapeamentoEncadeadoBitsTest import MapeamentoEncadeadoBitsTest
 from testes.memoriaSecundariaTest import MemoriaSecundariaTest
 from testes.memoriaPrimariaTest import MemoriaPrimariaTest
+from testes.gerenciadorMemoriaTest import GerenciadorMemoriaTest
 
 def manipularArquivoDiscoTeste():    
     # Configuração
@@ -409,5 +410,8 @@ if __name__ == '__main__':
     MemoriaPrimariaTest.adicionarProcessoMemoria3ProcessosTamanhoPaginaTest()
     '''
 
-    #MemoriaPrimariaTest.liberarMemoria3ProcessosIndice1TamanhoTotalProcessoTest()
-    #MemoriaPrimariaTest.liberarMemoria3ProcessosIndice1TamanhoPaginaTest()
+    GerenciadorMemoriaTest.adicionar1ProcessoMemoriaPrimariaTamanhoProcessoTest()
+    GerenciadorMemoriaTest.adicionar3ProcessoMemoriaPrimariaTamanhoProcessoTest()
+    GerenciadorMemoriaTest.adicionar1ProcessoMemoriaPrimariaTamanhoPaginaTest()
+    GerenciadorMemoriaTest.adicionar3ProcessoMemoriaPrimariaTamanhoPaginaTest()
+    #GerenciadorMemoriaTest.buscarPaginaASerRemovidaPorClasseTest()
