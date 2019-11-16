@@ -400,7 +400,6 @@ if __name__ == '__main__':
     MemoriaSecundariaTest.buscarProcessoDiscoTest()
     MemoriaSecundariaTest.buscarProcessoNivelAltoPrioridadeDiscoTest()
     MemoriaSecundariaTest.armazenarProcessoDiscoTest()
-    '''
 
     MemoriaPrimariaTest.adicionarProcessoMemoria1ProcessoTamanhoTotalProcessoTest()
     MemoriaPrimariaTest.adicionarProcessoMemoria2ProcessosTamanhoTotalProcessoTest()
@@ -408,3 +407,7 @@ if __name__ == '__main__':
     MemoriaPrimariaTest.adicionarProcessoMemoria1ProcessoTamanhoPaginaTest()
     MemoriaPrimariaTest.adicionarProcessoMemoria2ProcessosTamanhoPaginaTest()
     MemoriaPrimariaTest.adicionarProcessoMemoria3ProcessosTamanhoPaginaTest()
+    '''
+
+    MemoriaPrimariaTest.liberarMemoria3ProcessosIndice1TamanhoTotalProcessoTest()
+    MemoriaPrimariaTest.liberarMemoria3ProcessosIndice1TamanhoPaginaTest()

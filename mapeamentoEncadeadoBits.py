@@ -42,15 +42,14 @@ class MapeamentoEncadeadoBits:
         self._atualizarIndiceInicialSegmento( quantidadePosicoes, indiceASerRemovido )
         self._atualizarIndiceMemoriaLivre( False, quantidadePosicoes )
 
-    def buscarSegmentoPorClasseSubstiuticao( self, indiceClasseSubstituicao ):
-        segmentoEncontrado = -1
+    def buscarPosicaoInicialProcessoPelaClasseSubstituicao( self, indiceClasseSubstituicao ):
+        posicaoInicialSegmentoEncontrado = -1
         for indice, segmento in enumerate( self._listaSegmentos ):
             if( segmento.classeSubstituicao == indiceClasseSubstituicao ):
-                segmentoEncontrado = indice
-                return segmentoEncontrado
+                posicaoInicialSegmentoEncontrado = self._listaSegmentos[indice].posicaoInicial
+                return posicaoInicialSegmentoEncontrado
         
-        return segmentoEncontrado
-
+        return posicaoInicialSegmentoEncontrado
 
     def exibirMapaBits( self ):
         """

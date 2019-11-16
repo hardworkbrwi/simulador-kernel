@@ -32,21 +32,24 @@ class MemoriaPrimaria:
             return True
             
         else:
-            return False
+            return False        
 
-        
-
-    def liberarMemoria( self, tamanhoPagina = None ):
+    def liberarMemoria( self, indiceProcessoASerRemovido, tamanhoPagina = None ):
         # ALTERAR PARA USAR MÉTODO DE SUBSTITUIÇÃO DE PÁGINA LRU
-        processoASerRemovido = self._posicoesMemoria[0]
+        processoASerRemovido = self._posicoesMemoria[indiceProcessoASerRemovido]
 
+        indiceFinal = indiceProcessoASerRemovido
+        indiceInicial = indiceProcessoASerRemovido
         if( tamanhoPagina == None ):
-            tamanhoProcessoASerRemovido = processoASerRemovido.tamanhoProcesso
+            #tamanhoProcessoASerRemovido = processoASerRemovido.tamanhoProcesso
+            indiceFinal += processoASerRemovido.tamanhoProcesso
 
         else:
-            tamanhoProcessoASerRemovido = tamanhoPagina
+            #tamanhoProcessoASerRemovido = tamanhoPagina
+            indiceFinal += tamanhoPagina
+
             
-        for i in range( tamanhoProcessoASerRemovido - 1, -1, -1 ):
+        for i in range( indiceFinal - 1, indiceInicial - 1, -1 ):
             del( self._posicoesMemoria[i] )
         
         #processoASerRemovido.tempoVida -= processoASerRemovido.tempoExecucao
