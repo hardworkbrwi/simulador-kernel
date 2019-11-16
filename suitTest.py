@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-#homolog.py
+#suitTest.py
 
 from random import randint
 
@@ -19,6 +19,7 @@ from testes.processoTest import ProcessoTest
 from testes.segmentoTest import SegmentoTest
 from testes.mapeamentoEncadeadoBitsTest import MapeamentoEncadeadoBitsTest
 from testes.memoriaSecundariaTest import MemoriaSecundariaTest
+from testes.memoriaPrimariaTest import MemoriaPrimariaTest
 
 def manipularArquivoDiscoTeste():    
     # Configuração
@@ -395,8 +396,15 @@ if __name__ == '__main__':
     MapeamentoEncadeadoBitsTest.buscarSegmentoPorClasseSubstituicao2Test()
     MapeamentoEncadeadoBitsTest.buscarSegmentoPorClasseSubstituicao3Test()
     MapeamentoEncadeadoBitsTest.buscarSegmentoPorClasseSubstituicaoIndeterminadaTest()
-    '''
 
     MemoriaSecundariaTest.buscarProcessoDiscoTest()
     MemoriaSecundariaTest.buscarProcessoNivelAltoPrioridadeDiscoTest()
     MemoriaSecundariaTest.armazenarProcessoDiscoTest()
+    '''
+
+    MemoriaPrimariaTest.adicionarProcessoMemoria1ProcessoTamanhoTotalProcessoTest()
+    MemoriaPrimariaTest.adicionarProcessoMemoria2ProcessosTamanhoTotalProcessoTest()
+    MemoriaPrimariaTest.adicionarProcessoMemoria3ProcessosTamanhoTotalProcessoTest()
+    MemoriaPrimariaTest.adicionarProcessoMemoria1ProcessoTamanhoPaginaTest()
+    MemoriaPrimariaTest.adicionarProcessoMemoria2ProcessosTamanhoPaginaTest()
+    MemoriaPrimariaTest.adicionarProcessoMemoria3ProcessosTamanhoPaginaTest()
