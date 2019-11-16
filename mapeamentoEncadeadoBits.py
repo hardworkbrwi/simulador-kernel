@@ -22,26 +22,34 @@ class MapeamentoEncadeadoBits:
 
     def adicionarSegmento( self, segmento ):
     
-        """ Description
+        """ Função para adicionar segmento ao mapa de bits. Chama a função para 
+        atualiza o índice de memória livre, a fim de informar o próximo espaço
+        livre de memória disponível.
+
         :Segmento segmento:
-        :param segmento:
-    
-        :raises:
-    
-        :rtype:
+        :param segmento: segmento a ser adicionado a lista
         """
         self._listaSegmentos.append( segmento )
         
         quantidadePosicoes = segmento.quantidadePosicoes
         self._atualizarIndiceMemoriaLivre( True, quantidadePosicoes )
 
-    def removerSegmento( self ):
-        segmentoEliminado = self._listaSegmentos.pop(0)
+    def removerSegmento( self, indiceASerRemovido ):
+        segmentoEliminado = self._listaSegmentos.pop( indiceASerRemovido )
 
         quantidadePosicoes = segmentoEliminado.quantidadePosicoes
 
-        self._atualizarIndiceInicialSegmento( quantidadePosicoes )
+        self._atualizarIndiceInicialSegmento( quantidadePosicoes, indiceASerRemovido )
         self._atualizarIndiceMemoriaLivre( False, quantidadePosicoes )
+
+    def buscarPosicaoInicialProcessoPelaClasseSubstituicao( self, indiceClasseSubstituicao ):
+        posicaoInicialSegmentoEncontrado = -1
+        for indice, segmento in enumerate( self._listaSegmentos ):
+            if( segmento.classeSubstituicao == indiceClasseSubstituicao ):
+                posicaoInicialSegmentoEncontrado = self._listaSegmentos[indice].posicaoInicial
+                return posicaoInicialSegmentoEncontrado
+        
+        return posicaoInicialSegmentoEncontrado
 
     def exibirMapaBits( self ):
         """
@@ -64,12 +72,32 @@ class MapeamentoEncadeadoBits:
         print( grade )
         print( "Próximo indice de memória livre: posicão - {}\n".format( self.indiceMemoriaLivre ) )
 
-    def _atualizarIndiceInicialSegmento( self, quantidadePosicoes ):
+    def _atualizarIndiceInicialSegmento( self, quantidadePosicoes, indiceInicialDecremento ):
+        """ Função para atualizar o índice inicial de todos os segmentos a partir do indice inicial passado como parâremetro.
+
+        :int quantidadePosicoes:
+        :param quantidadePosicoes: quantidade de posições a serem decrementadas do atributo de posicaoInicial dos segmentos
+
+        :int indiceInicialDecremento:
+        :param indiceInicialDecremento: Indice ao qual deverá iniciar o decremento para atualização da posicaoInicial
+        """
         quantidadeElementos = len( self._listaSegmentos )
-        for i in range( 0,  quantidadeElementos ):
+        for i in range( indiceInicialDecremento,  quantidadeElementos ):
             self._listaSegmentos[i].posicaoInicial -= quantidadePosicoes
 
     def _atualizarIndiceMemoriaLivre( self, segmentoAdicionado, quantidadePosicoes ):
+        """ Função para atualizar o índice de memória livre,
+        a fim de informar o próximo espaço livre de memória disponível.
+
+        :boolean segmentoAdicionado:
+        :param segmentoAdicionado: se o parâmetro for True o segmento foi adicionado e
+        o indiceMemoriaLivre deverá ser incrementado. Caso contrário o indiceMemoriaLivre
+        será decrementado.
+
+        :int quantidadePosicoes:
+        :param quantidadePosicoes: quantidade de posições a ser incrementado ou decrementada
+        no mapara de bits.
+        """
         if( segmentoAdicionado ):
             self._indiceMemoriaLivre += quantidadePosicoes
 

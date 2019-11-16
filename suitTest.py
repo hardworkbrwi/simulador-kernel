@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-#homolog.py
+#suitTest.py
 
 from random import randint
 
-from processo import Processo
 from mapeamentoEncadeadoBits import MapeamentoEncadeadoBits
 from segmento import Segmento
 from memoriaPrimaria import MemoriaPrimaria
@@ -13,12 +12,20 @@ from memoriaSecundaria import MemoriaSecundaria
 from gerenciadorMemoria import GerenciadorMemoria
 from processador import Processador
 from kernel import criarProcesso
+from processo import Processo
+from testes.gerenciadorMemoriaTest import GerenciadorMemoriaTest
 
+from testes.processoTest import ProcessoTest
+from testes.segmentoTest import SegmentoTest
+from testes.mapeamentoEncadeadoBitsTest import MapeamentoEncadeadoBitsTest
+from testes.memoriaSecundariaTest import MemoriaSecundariaTest
+from testes.memoriaPrimariaTest import MemoriaPrimariaTest
 
 def manipularArquivoDiscoTeste():    
     # Configuração
+    caminhoDisco = "disco.csv"
 
-    processo = MemoriaSecundaria.buscarProcesso()
+    processo = MemoriaSecundaria.buscarProcessoDisco( caminhoDisco )
     processo.exibirInfoProcesso()
     
     segmento = Segmento()
@@ -29,7 +36,7 @@ def manipularArquivoDiscoTeste():
     mapaBits = MapeamentoEncadeadoBits()
     mapaBits.adicionarSegmento( segmento )
 
-    processo1 = MemoriaSecundaria.buscarProcesso()
+    processo1 = MemoriaSecundaria.buscarProcessoDisco( caminhoDisco )
     processo1.exibirInfoProcesso()
     
     segmento1 = Segmento()
@@ -43,8 +50,8 @@ def manipularArquivoDiscoTeste():
 
     mapaBits.exibirMapaBits()
 
-    MemoriaSecundaria.armazenarProcesso( processo )
-    MemoriaSecundaria.armazenarProcesso( processo1 )
+    MemoriaSecundaria.armazenarProcessoDisco( processo, caminhoDisco )
+    MemoriaSecundaria.armazenarProcessoDisco( processo1, caminhoDisco )
 
     mapaBits.removerSegmento()
 
@@ -281,7 +288,8 @@ def removeProcessoMemoriaPrimariaQuandoArquivoVazioTeste():
     processo.tempoExecucao = 2
     processo.tempoVida = 4
 
-    processo1 = MemoriaSecundaria.buscarProcesso()
+    caminhoDisco = "disco.csv"
+    processo1 = MemoriaSecundaria.buscarProcessoDisco( caminhoDisco )
 
     gerenciadorMemoria = GerenciadorMemoria()
     
@@ -338,13 +346,16 @@ def gerarAdicionarNovoProcessoDiscoTeste():
     idProcesso = randint( 5000, 6000 )
     processosStr = []
     processoStr = ""
-    processo = Processo()        
+    processoEsperado = Processo()
+
+    caminhoDisco = "discorepositorio.csv"    
 
     # Execução
-    criarProcesso( idProcesso )
+    processoAArmazenar = criarProcesso( idProcesso )
+    MemoriaSecundaria.armazenarProcessoDisco( processoAArmazenar, caminhoDisco )
 
     try:
-        disco = open( "discorepositorio.csv", "r" )
+        disco = open( caminhoDisco, "r" )
 
     except IOError as io:
         print( "Não foi possível abrir o arquivo {}".format( io ) )
@@ -356,25 +367,50 @@ def gerarAdicionarNovoProcessoDiscoTeste():
     processoStr = processosStr[-1]
 
     # Validação
-    processo = MemoriaSecundaria._converterStringParaProcesso( processoStr )
-    processo.exibirInfoProcesso()
-    
+    processoEsperado = MemoriaSecundaria._converterStringParaProcesso( processoStr )
+    processoEsperado.exibirInfoProcesso()
+
 if __name__ == '__main__':
-    #manipularArquivoDiscoTeste()
-    #adicionarUmProcessoMemoriaPrimariaTeste()
-    #adicionarDoisProcessoMemoriaPrimariaTeste()
-    #adicionarTresProcessoMemoriaPrimariaTeste()
-    #adicionarProcessosAcimaCapacidadeMemoriaPrimariaTeste()
+    '''
+    ProcessoTest.executarTest()
+    ProcessoTest.nomeProcessoTest()
+    ProcessoTest.exibirProcessoTest()
 
-    #removerProcessoMemoriaPrimariaTeste()
+    SegmentoTest.definirClasseSubstituicaoPaginaClasse0Test()
+    SegmentoTest.definirClasseSubstituicaoPaginaClasse1Test()
+    SegmentoTest.definirClasseSubstituicaoPaginaClasse2Test()
+    SegmentoTest.definirClasseSubstituicaoPaginaClasse3Test()
+    SegmentoTest.definirClasseSubstituicaoPaginaBitR0BitMIndefinidoTest()
+    SegmentoTest.definirClasseSubstituicaoPaginaBitR1BitMIndefinidoTest()
+    SegmentoTest.definirClasseSubstituicaoPaginaBitRIndefinidoBitM0Test()
+    SegmentoTest.definirClasseSubstituicaoPaginaBitRIndefinidoBitM1Test()
 
-    #adicionarProcessoGerenciadorMemoriaTeste()
+    MapeamentoEncadeadoBitsTest.adicionarSegmentoTest()
+    MapeamentoEncadeadoBitsTest.adicionarSegmentoVericarIndiceMemoriaLivreAtualizadoTest()
+    MapeamentoEncadeadoBitsTest.adicionarSegmentoTamanhoProcessoTest()
+    MapeamentoEncadeadoBitsTest.adicionarSegmentoTamanhoPaginaTest()
+    MapeamentoEncadeadoBitsTest.removerSegmentoIndice0Test()
+    MapeamentoEncadeadoBitsTest.removerSegmentoIndice1Test()
+    MapeamentoEncadeadoBitsTest.removerSegmentoIndice2Test()
+    MapeamentoEncadeadoBitsTest.removerSegmentoIndice3Test()
 
-    #adicionarProcessosMaiorGerenciadorMemoria_PrimeiroProcessoNaoRetornaAoDiscoTeste()
+    MapeamentoEncadeadoBitsTest.buscarSegmentoPorClasseSubstituicao0Test()
+    MapeamentoEncadeadoBitsTest.buscarSegmentoPorClasseSubstituicao1Test()
+    MapeamentoEncadeadoBitsTest.buscarSegmentoPorClasseSubstituicao2Test()
+    MapeamentoEncadeadoBitsTest.buscarSegmentoPorClasseSubstituicao3Test()
+    MapeamentoEncadeadoBitsTest.buscarSegmentoPorClasseSubstituicaoIndeterminadaTest()
 
-    #removeProcessoMemoriaPrimariaQuandoArquivoVazioTeste()
+    MemoriaSecundariaTest.buscarProcessoDiscoTest()
+    MemoriaSecundariaTest.buscarProcessoNivelAltoPrioridadeDiscoTest()
+    MemoriaSecundariaTest.armazenarProcessoDiscoTest()
 
-    #executarProcesso()
-    escalonarProcessos()
+    MemoriaPrimariaTest.adicionarProcessoMemoria1ProcessoTamanhoTotalProcessoTest()
+    MemoriaPrimariaTest.adicionarProcessoMemoria2ProcessosTamanhoTotalProcessoTest()
+    MemoriaPrimariaTest.adicionarProcessoMemoria3ProcessosTamanhoTotalProcessoTest()
+    MemoriaPrimariaTest.adicionarProcessoMemoria1ProcessoTamanhoPaginaTest()
+    MemoriaPrimariaTest.adicionarProcessoMemoria2ProcessosTamanhoPaginaTest()
+    MemoriaPrimariaTest.adicionarProcessoMemoria3ProcessosTamanhoPaginaTest()
+    '''
 
-    #gerarAdicionarNovoProcessoDiscoTeste()
+    MemoriaPrimariaTest.liberarMemoria3ProcessosIndice1TamanhoTotalProcessoTest()
+    MemoriaPrimariaTest.liberarMemoria3ProcessosIndice1TamanhoPaginaTest()

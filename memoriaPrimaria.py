@@ -16,9 +16,13 @@ class MemoriaPrimaria:
         self._posicoesMemoria = []
         
 
-    def adicionarProcessoMemoria( self, processo, posicaoInicial ):
+    def adicionarProcessoMemoria( self, processo, posicaoInicial, tamanhoPagina = None ):
         espacoUtilizadoMemoria = len( self._posicoesMemoria )
-        tamanhoProcessoNovo = processo.tamanhoProcesso
+        
+        if( tamanhoPagina == None ):
+            tamanhoProcessoNovo = processo.tamanhoProcesso
+        else:
+            tamanhoProcessoNovo = tamanhoPagina
 
         if espacoUtilizadoMemoria + tamanhoProcessoNovo <= self._tamanhoMemoria:
             posicaoFinal = posicaoInicial + tamanhoProcessoNovo
@@ -28,27 +32,31 @@ class MemoriaPrimaria:
             return True
             
         else:
-            return False
+            return False        
 
-        
+    def liberarMemoria( self, indiceProcessoASerRemovido, tamanhoPagina = None ):
+        # ALTERAR PARA USAR MÉTODO DE SUBSTITUIÇÃO DE PÁGINA LRU
+        processoASerRemovido = self._posicoesMemoria[indiceProcessoASerRemovido]
 
-    def liberarMemoria( self, tamanhoPagina = -1 ):
-        processoASerRemovido = self._posicoesMemoria[0]
-
-        if( tamanhoPagina == -1 ):
-            tamanhoProcessoASerRemovido = processoASerRemovido.tamanhoProcesso
+        indiceFinal = indiceProcessoASerRemovido
+        indiceInicial = indiceProcessoASerRemovido
+        if( tamanhoPagina == None ):
+            #tamanhoProcessoASerRemovido = processoASerRemovido.tamanhoProcesso
+            indiceFinal += processoASerRemovido.tamanhoProcesso
 
         else:
-            tamanhoProcessoASerRemovido = tamanhoPagina
+            #tamanhoProcessoASerRemovido = tamanhoPagina
+            indiceFinal += tamanhoPagina
+
             
-        for i in range( tamanhoProcessoASerRemovido - 1, -1, -1 ):
+        for i in range( indiceFinal - 1, indiceInicial - 1, -1 ):
             del( self._posicoesMemoria[i] )
         
-        processoASerRemovido.tempoVida -= processoASerRemovido.tempoExecucao
+        #processoASerRemovido.tempoVida -= processoASerRemovido.tempoExecucao
 
         return processoASerRemovido
 
-    def exibirMemoriaPrimaria( self ):
+    def exibirMemoriaPrimariaTamanhoTotalProcesso( self ):
         """
 		Exibe os processos inseridos na memória primária
 		"""
@@ -60,20 +68,49 @@ class MemoriaPrimaria:
                                   "ID PROCESSO".center(12),
                                   "TAMANHO PROCESSO".center(16) ) )
         print( grade )
-        quantidadePosicoesOcupadas = len( self._posicoesMemoria )
+        
         ultimoProcessoTemp = self._posicoesMemoria[-1]
         tamanhoProcessoTemp = ultimoProcessoTemp.tamanhoProcesso
         posicaoAtual = 0
+        quantidadePosicoesOcupadas = len( self._posicoesMemoria )
         posicaoFinal = quantidadePosicoesOcupadas - tamanhoProcessoTemp
+        
         while( posicaoAtual <= posicaoFinal ):
             processo = self._posicoesMemoria[ posicaoAtual ]
             print( "{}-{}|{}|{}".format( str( posicaoAtual ).ljust(10), str( posicaoAtual + processo.tamanhoProcesso - 1 ).rjust(11),
-                                      str( processo.idProcesso ).ljust(12),
-                                      str( processo.tamanhoProcesso).ljust(16) ) )
+                                    str( processo.idProcesso ).ljust(12),
+                                    str( processo.tamanhoProcesso).ljust(16) ) )
+            
             posicaoAtual += processo.tamanhoProcesso
 
         print( grade )
 
+    def exibirMemoriaPrimariaTamanhoPagina( self, tamanhoPagina ):
+        """
+		Exibe os processos inseridos na memória primária
+		"""
+        print( "-------- ALOCAÇÃO DA MEMÓRIA PRINCIPAL --------".center(52) )
+        LINHA = "-"
+        grade = 52 * LINHA
+        print( "{}".format( grade ) )
+        print( "{}|{}|{}".format( "INTERVALO DE POSIÇÕES".center(22),
+                                  "ID PROCESSO".center(12),
+                                  "TAMANHO PÁGINA".center(16) ) )
+        print( grade )
+        
+        posicaoAtual = 0
+        quantidadePosicoesOcupadas = len( self._posicoesMemoria )
+        posicaoFinal = quantidadePosicoesOcupadas - tamanhoPagina
+        
+        while( posicaoAtual <= posicaoFinal ):
+            processo = self._posicoesMemoria[ posicaoAtual ]
+            print( "{}-{}|{}|{}".format( str( posicaoAtual ).ljust(10), str( posicaoAtual + tamanhoPagina - 1 ).rjust(11),
+                                    str( processo.idProcesso ).ljust(12),
+                                    str( tamanhoPagina).ljust(16) ) )
+            
+            posicaoAtual += tamanhoPagina
+
+        print( grade )
     
     @property
     def posicoesMemoria( self ):

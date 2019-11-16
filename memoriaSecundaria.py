@@ -11,12 +11,12 @@ class MemoriaSecundaria:
     """
 
     @staticmethod
-    def buscarProcesso():
+    def buscarProcessoDisco( caminhoDisco ):
         '''
-        Busca o primeiro processo na fila de processo contida no arquivo (disco) 
+        Busca o primeiro processo na fila de processo contida no arquivo (caminhoDisco) 
         '''
         try:
-            arquivo = open( 'disco.csv', 'r' )
+            arquivo = open( caminhoDisco, 'r' )
 
         except IOError as io:
             print( "Não foi possível abrir o arquivo {}".format( io ) )
@@ -29,9 +29,10 @@ class MemoriaSecundaria:
 
             tamanhoListaProcesso = len( processosStr )
             if( tamanhoListaProcesso != 0 ):
-                processoStr = processosStr.pop(0)
+                indicePrioridadeMaisAlta = MemoriaSecundaria._buscarProcessoNivelAltoPrioridadeDisco( processosStr )
+                processoStr = processosStr.pop( indicePrioridadeMaisAlta )
 
-                MemoriaSecundaria._gravarDisco( processosStr )
+                MemoriaSecundaria._gravarDisco( processosStr, caminhoDisco )
 
                 try:
                     processo = MemoriaSecundaria._converterStringParaProcesso( processoStr )
@@ -42,14 +43,12 @@ class MemoriaSecundaria:
         return processo
 
     @staticmethod
-    def armazenarProcesso( processo ):
+    def armazenarProcessoDisco( processo, caminhoDisco ):
         '''
-        Realoca o processo com execução incompleta no disco
+        Realoca o processo com execução incompleta no caminhoDisco
         '''
         try:
-            arquivo = open( 'disco.csv', 'r' )
-            #arquivo = open( 'discorepositorio.csv', 'r' )
-            
+            arquivo = open( caminhoDisco, 'r' )
 
         except IOError as io:
             print( "Não foi possível abrir o arquivo {}".format( io ) )
@@ -59,16 +58,27 @@ class MemoriaSecundaria:
             processoRealocado = MemoriaSecundaria._converterProcessoParaString( processo )
             processosStr.append( processoRealocado )            
 
-            MemoriaSecundaria._gravarDisco( processosStr )
+            MemoriaSecundaria._gravarDisco( processosStr, caminhoDisco )
         
         finally:
             arquivo.close()
 
     @classmethod
-    def _gravarDisco( cls, processosStr ):
+    def _buscarProcessoNivelAltoPrioridadeDisco( cls, processosStr ):
+        indiceAtualPrioridade = 0
+        nivelAtualPrioridade = 4
+        for indice, processoStr in enumerate( processosStr ):
+            processo = cls._converterStringParaProcesso( processoStr )
+            if( processo.prioridade < nivelAtualPrioridade ):
+                indiceAtualPrioridade = indice
+                nivelAtualPrioridade = processo.prioridade
+
+        return indiceAtualPrioridade
+
+    @classmethod
+    def _gravarDisco( cls, processosStr, caminhoDisco ):
         try:
-            arquivo = open( 'disco.csv', 'w' )
-            #arquivo = open( 'discorepositorio.csv', "w" )
+            arquivo = open( caminhoDisco, 'w' )
 
         except IOError as io:
             print( "Não foi possível abrir o arquivo {}".format( io ) )
@@ -97,15 +107,17 @@ class MemoriaSecundaria:
 
             try:
                 quantidadeItensInfoProcesso = len( infoProcesso )
-                if( quantidadeItensInfoProcesso != 4 ):
+                if( quantidadeItensInfoProcesso != 6 ):
                     raise ValueError
 
                 else:
                     processo = Processo()
                     processo.idProcesso = infoProcesso[0]
-                    processo.tamanhoProcesso = infoProcesso[1]
-                    processo.tempoExecucao = infoProcesso[2]
-                    processo.tempoVida = infoProcesso[3]
+                    #processo.nomeProcesso = infoProcesso[1]
+                    processo.tamanhoProcesso = infoProcesso[2]
+                    processo.tempoExecucao = infoProcesso[3]
+                    processo.prioridade = infoProcesso[4]
+                    processo.tempoVida = infoProcesso[5]
 
                     return processo
 
@@ -130,8 +142,10 @@ class MemoriaSecundaria:
         
         processoStr = []
         processoStr.append( str(processo.idProcesso) + VIRGULA )
+        processoStr.append( str(processo.nomeProcesso) + VIRGULA )
         processoStr.append( str(processo.tamanhoProcesso) + VIRGULA )
         processoStr.append( str(processo.tempoExecucao) + VIRGULA )
+        processoStr.append( str(processo.prioridade) + VIRGULA )
         processoStr.append( str(processo.tempoVida) + QUEBRA_LINHA)
 
         return processoStr

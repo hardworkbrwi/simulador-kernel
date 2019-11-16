@@ -59,7 +59,7 @@ class GerenciadorMemoria:
 
             posicaoInicial = self._mapaBits.indiceMemoriaLivre
             
-            memoriaPrimaria.adicionarProcessoMemoria( processo, posicaoInicial )
+            memoriaPrimaria.adicionarProcessoMemoria( processo, posicaoInicial, self._tamanhoPagina )
 
             segmento = Segmento()
             segmento.processo = processo
@@ -70,20 +70,19 @@ class GerenciadorMemoria:
 
 
     
-    def exibirMapaBits( self ):
-        self._mapaBits.exibirMapaBits()
 
     def _removerProcessoMemoriaPrimaria( self, memoriaPrimaria, processo ):
 
         if( processo == None ):
-            processoRemovido = memoriaPrimaria.liberarMemoria()
+            processoRemovido = memoriaPrimaria.liberarMemoria( self._tamanhoPagina )
 
             self._mapaBits.removerSegmento()
             
-            tempoVidaProcessoRemovido = processoRemovido.tempoVida
+            #tempoVidaProcessoRemovido = processoRemovido.tempoVida
 
-            if( tempoVidaProcessoRemovido > 0 ):
-                MemoriaSecundaria.armazenarProcesso( processoRemovido )
+            # QUEM FARÁ ESSE CONTROLE SERÁ O KERNEL
+            #if( tempoVidaProcessoRemovido > 0 ):
+            #    MemoriaSecundaria.armazenarProcesso( processoRemovido )
 
         else:
             quantidadePosicoesOcupadasMemoria = len( memoriaPrimaria.posicoesMemoria )
@@ -98,13 +97,34 @@ class GerenciadorMemoria:
                 tempoVidaProcessoRemovido = processoRemovido.tempoVida
 
                 if( tempoVidaProcessoRemovido > 0 ):
-                    MemoriaSecundaria.armazenarProcesso( processoRemovido )
+                    MemoriaSecundaria.armazenarProcessoDisco( processoRemovido )
 
                 quantidadePosicoesOcupadasMemoria = len( memoriaPrimaria.posicoesMemoria )  
 
 
-    def _criarPagina( self, processo ):
-        pass
+    def buscarProcessoASerRemovido( self, memoriaPrimaria ):
+        '''
+        Método de busca de processo a ser removido a partir de algorítimo de substituição de
+        página LRU
+        
+        :int tempoVida:
+        :field tempoVida: define o tempo de vida útil do processo
+        '''
+        indiceSegmento = -1
+        processoASerRemovido = None
+        for i in range( 0, 4 ):
+            indiceSegmento = self._mapaBits.buscarSegmentoPorClasseSubstiuticao( i )
+            if( indiceSegmento != -1 ):
+                segmentoProcessoASerRemovido = self._mapaBits[indiceSegmento]
+                processoASerRemovido = segmentoProcessoASerRemovido.processo
+
+        return processoASerRemovido
+
+
+
+    
+    def exibirMapaBits( self ):
+        self._mapaBits.exibirMapaBits()
 
     @property
     def tamanhoPagina( self ):
