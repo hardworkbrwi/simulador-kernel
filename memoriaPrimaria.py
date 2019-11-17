@@ -111,6 +111,13 @@ class MemoriaPrimaria:
             posicaoAtual += tamanhoPagina
 
         print( grade )
+
+    def memoriaEstaVazia(  self ):
+        quantidadePosicoesOcupadas = len( self._posicoesMemoria )
+        if( quantidadePosicoesOcupadas == 0 ):
+            return True
+        
+        return False
     
     @property
     def posicoesMemoria( self ):
