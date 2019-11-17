@@ -86,7 +86,7 @@ if __name__ == '__main__':
 
             novoProcesso = MemoriaSecundaria.buscarProcessoDisco( caminhoDisco )
 
-            if( memoriaVazia and novoProcesso == None ):
+            if( memoriaVazia and novoProcesso == None ): # A) M0 e D0
                 print( "O sistema será encerrado por indisponibilidade de processos." )
                 pid = os.getpid()
                 os.kill( pid, 15 )
