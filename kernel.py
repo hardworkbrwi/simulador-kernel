@@ -99,6 +99,7 @@ if __name__ == '__main__':
 
                     if( quantidadePosicoesOcupadasMemoria + tamanhoNovoProcesso > tamanhoMaxMemoria ):
                         listaProcessosRemovidos = gerenciadorMemoria.liberarEspacoMemoriaPrimaria( memoriaPrimaria, tamanhoNovoProcesso )
+                        processador.montarTabelaDeExecucaoDeProcessos( memoriaPrimaria )
 
                         for processoRemovidoAtual in listaProcessosRemovidos:
                             if( processoRemovidoAtual.tempoVida > 0 ):
@@ -109,12 +110,13 @@ if __name__ == '__main__':
                 processoEscalonado = processador.escalonadorDeProcesso()
                 gerenciadorMemoria.atualizarBitRProcessosNaoReferenciados()
                 gerenciadorMemoria.atualizaBitsReferenciaModificacaoMemoriaPrimaria( memoriaPrimaria, processoEscalonado )
-                flagConclusao = processador.executar()
+                flagConclusao = processador.executar( processoEscalonado )
 
                 if( flagConclusao == -1 ):
                     espacoASerRemovido = gerenciadorMemoria.tamanhoPagina
                     gerenciadorMemoria.liberarEspacoMemoriaPrimaria( memoriaPrimaria, espacoASerRemovido, processoEscalonado )
-                
+                    processador.montarTabelaDeExecucaoDeProcessos( memoriaPrimaria )
+
                 elif( flagConclusao == 1 ):
                     gerenciadorMemoria.atualizarTempoVidaProcesso( memoriaPrimaria, processoEscalonado )
 
