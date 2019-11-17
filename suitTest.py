@@ -54,7 +54,7 @@ def manipularArquivoDiscoTeste():
     MemoriaSecundaria.armazenarProcessoDisco( processo, caminhoDisco )
     MemoriaSecundaria.armazenarProcessoDisco( processo1, caminhoDisco )
 
-    mapaBits.removerSegmento()
+    mapaBits.removerSegmento(0)
 
     print(mapaBits.indiceMemoriaLivre)
 
@@ -72,7 +72,7 @@ def adicionarUmProcessoMemoriaPrimariaTeste():
     memoriaPrimaria.adicionarProcessoMemoria( processo, 0 )
 
     # Verificação
-    memoriaPrimaria.exibirMemoriaPrimaria()
+    memoriaPrimaria.exibirMemoriaPrimariaTamanhoTotalProcesso()
 
 def adicionarDoisProcessoMemoriaPrimariaTeste():
     # Configuração
@@ -96,7 +96,7 @@ def adicionarDoisProcessoMemoriaPrimariaTeste():
     memoriaPrimaria.adicionarProcessoMemoria( processo1, posicaoInicialSegundoProcesso )
 
     # Verificação
-    memoriaPrimaria.exibirMemoriaPrimaria()
+    memoriaPrimaria.exibirMemoriaPrimariaTamanhoTotalProcesso()
 
 def adicionarTresProcessoMemoriaPrimariaTeste():
     # Configuração
@@ -128,7 +128,7 @@ def adicionarTresProcessoMemoriaPrimariaTeste():
     memoriaPrimaria.adicionarProcessoMemoria( processo2, posicaoInicialTerceiroProcesso )
 
     # Verificação
-    memoriaPrimaria.exibirMemoriaPrimaria()
+    memoriaPrimaria.exibirMemoriaPrimariaTamanhoTotalProcesso()
 
 def adicionarProcessosAcimaCapacidadeMemoriaPrimariaTeste():
     # VERIFICAR PROBLEMA DE QUANTIDADE MÁXIMA DE ELEMENTOS NA LISTA 
@@ -162,7 +162,7 @@ def adicionarProcessosAcimaCapacidadeMemoriaPrimariaTeste():
     memoriaPrimaria.adicionarProcessoMemoria( processo2, posicaoInicialTerceiroProcesso )
 
     # Verificação
-    memoriaPrimaria.exibirMemoriaPrimaria()
+    memoriaPrimaria.exibirMemoriaPrimariaTamanhoTotalProcesso()
 
 def removerProcessoMemoriaPrimariaTeste():
     # Configuração
@@ -195,13 +195,13 @@ def removerProcessoMemoriaPrimariaTeste():
 
 
     # Verificação
-    memoriaPrimaria.exibirMemoriaPrimaria()
+    memoriaPrimaria.exibirMemoriaPrimariaTamanhoTotalProcesso()
     
-    memoriaPrimaria.liberarMemoria()
-    memoriaPrimaria.exibirMemoriaPrimaria()
+    memoriaPrimaria.liberarMemoria(0)
+    memoriaPrimaria.exibirMemoriaPrimariaTamanhoTotalProcesso()
 
-    memoriaPrimaria.liberarMemoria()
-    memoriaPrimaria.exibirMemoriaPrimaria()
+    memoriaPrimaria.liberarMemoria(0)
+    memoriaPrimaria.exibirMemoriaPrimariaTamanhoTotalProcesso()
 
 def adicionarProcessoGerenciadorMemoriaTeste():
     processo = Processo()
@@ -215,7 +215,7 @@ def adicionarProcessoGerenciadorMemoriaTeste():
     gerenciadorMemoria = GerenciadorMemoria()
     gerenciadorMemoria.adicionarProcessoMemoriaPrimaria( memoriaPrimaria, processo )
 
-    memoriaPrimaria.exibirMemoriaPrimaria()
+    memoriaPrimaria.exibirMemoriaPrimariaTamanhoTotalProcesso()
 
     gerenciadorMemoria.exibirMapaBits()
 
@@ -246,7 +246,7 @@ def adicionarProcessosMaiorMemoriaGerenciadorMemoriaTeste():
     gerenciadorMemoria.adicionarProcessoMemoriaPrimaria( processo2, memoriaPrimaria )
 
     #Validação
-    memoriaPrimaria.exibirMemoriaPrimaria()
+    memoriaPrimaria.exibirMemoriaPrimariaTamanhoTotalProcesso()
 
     gerenciadorMemoria.exibirMapaBits()
 
@@ -277,7 +277,7 @@ def adicionarProcessosMaiorGerenciadorMemoria_PrimeiroProcessoNaoRetornaAoDiscoT
     gerenciadorMemoria.adicionarProcessoMemoriaPrimaria( memoriaPrimaria, processo2 )
 
     #Validação
-    memoriaPrimaria.exibirMemoriaPrimaria()
+    memoriaPrimaria.exibirMemoriaPrimariaTamanhoTotalProcesso()
 
     gerenciadorMemoria.exibirMapaBits()
 
@@ -338,7 +338,7 @@ def escalonarProcessos():
     processador.exibirTabelaDeExecucaoDeProcessos()
 
     #Validação
-    memoriaPrimaria.exibirMemoriaPrimaria()
+    memoriaPrimaria.exibirMemoriaPrimariaTamanhoTotalProcesso()
 
     gerenciadorMemoria.exibirMapaBits()
 
@@ -411,10 +411,13 @@ if __name__ == '__main__':
     MemoriaPrimariaTest.adicionarProcessoMemoria1ProcessoTamanhoPaginaTest()
     MemoriaPrimariaTest.adicionarProcessoMemoria2ProcessosTamanhoPaginaTest()
     MemoriaPrimariaTest.adicionarProcessoMemoria3ProcessosTamanhoPaginaTest()
-    '''
 
     GerenciadorMemoriaTest.adicionar1ProcessoMemoriaPrimariaTamanhoProcessoTest()
     GerenciadorMemoriaTest.adicionar3ProcessoMemoriaPrimariaTamanhoProcessoTest()
     GerenciadorMemoriaTest.adicionar1ProcessoMemoriaPrimariaTamanhoPaginaTest()
     GerenciadorMemoriaTest.adicionar3ProcessoMemoriaPrimariaTamanhoPaginaTest()
+    '''
+    GerenciadorMemoriaTest.liberarEspacoMemoriaPrimariaTest()
+
+
     #GerenciadorMemoriaTest.buscarPaginaASerRemovidaPorClasseTest()

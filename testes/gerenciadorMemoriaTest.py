@@ -21,7 +21,7 @@ class GerenciadorMemoriaTest:
         for id in range( 5 ):
             processo = Processo()
             processo.idProcesso = id
-            processo.tamanhoProcesso = randint( 20, 30 )
+            processo.tamanhoProcesso = randint( 200, 400 )
             processo.prioridade = randint( 0, 4 )
             processo.tempoVida = randint( 2, 20 )
             processo.bitR = randint( 0, 1 )
@@ -95,15 +95,15 @@ class GerenciadorMemoriaTest:
 
         memoriaPrimaria = MemoriaPrimaria()
 
-        tamanhoPagina = 25
 
         # Execução
         gerenciadorMemoria = GerenciadorMemoria()
-        gerenciadorMemoria.adicionarProcessoMemoriaPrimaria( memoriaPrimaria, listaProcessos[0], tamanhoPagina )
+        gerenciadorMemoria.tamanhoPagina = 25
+        gerenciadorMemoria.adicionarProcessoMemoriaPrimaria( memoriaPrimaria, listaProcessos[0] )
 
         # Validação
         listaProcessos[0].exibirInfoProcesso()
-        memoriaPrimaria.exibirMemoriaPrimariaTamanhoPagina(tamanhoPagina)
+        memoriaPrimaria.exibirMemoriaPrimariaTamanhoPagina(gerenciadorMemoria.tamanhoPagina)
         gerenciadorMemoria.exibirMapaBits()
 
     @staticmethod
@@ -114,19 +114,53 @@ class GerenciadorMemoriaTest:
 
         memoriaPrimaria = MemoriaPrimaria()
 
-        tamanhoPagina = 25
 
         # Execução
         gerenciadorMemoria = GerenciadorMemoria()
+        gerenciadorMemoria.tamanhoPagina = 25
         for i in range( 3 ):
-            gerenciadorMemoria.adicionarProcessoMemoriaPrimaria( memoriaPrimaria, listaProcessos[i], tamanhoPagina )
+            gerenciadorMemoria.adicionarProcessoMemoriaPrimaria( memoriaPrimaria, listaProcessos[i] )
 
         # Validação
         for i in range( 3 ):
             listaProcessos[i].exibirInfoProcesso()
         
-        memoriaPrimaria.exibirMemoriaPrimariaTamanhoPagina(tamanhoPagina)
+        memoriaPrimaria.exibirMemoriaPrimariaTamanhoPagina(gerenciadorMemoria.tamanhoPagina)
         gerenciadorMemoria.exibirMapaBits()
+
+    @staticmethod
+    def liberarEspacoMemoriaPrimariaTest():
+        print("\nliberarEspacoMemoriaPrimariaTest")
+        # Configuração   
+        listaProcessos = GerenciadorMemoriaTest.geradorDeProcessos()
+
+        memoriaPrimaria = MemoriaPrimaria()
+
+         # Execução
+        gerenciadorMemoria = GerenciadorMemoria()
+        for i in range( 5 ):
+            gerenciadorMemoria.adicionarProcessoMemoriaPrimaria( memoriaPrimaria, listaProcessos[i] )
+
+        for i in range( 5 ):
+            listaProcessos[i].exibirInfoProcesso()
+        
+        memoriaPrimaria.exibirMemoriaPrimariaTamanhoTotalProcesso()
+        gerenciadorMemoria.exibirMapaBits()
+
+        espacoASerliberado = 1000
+
+        # Validação
+        listaProcessos = gerenciadorMemoria.liberarEspacoMemoriaPrimaria( memoriaPrimaria, espacoASerliberado )
+        memoriaPrimaria.exibirMemoriaPrimariaTamanhoTotalProcesso()
+        gerenciadorMemoria.exibirMapaBits()
+
+        if( len( listaProcessos ) != 0 ):
+            print( "Há {} processos.".format( len(listaProcessos) ) )
+            for processo in listaProcessos:
+                processo.exibirInfoProcesso()
+        else:
+            print( "A lista de processos está vazia." )
+
 
     
     @staticmethod
