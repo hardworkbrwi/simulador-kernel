@@ -22,8 +22,6 @@ def menu():
             "2 - Executar Processo;\n" +
             "3 - Exibir mapa de bits;\n" +
             "4 - Encerrar processo principal.\n")
-    print(  "Obs.: Por default a configuração de substituição de processo é por swapping.\n"+
-            "A fim de alterar o modo de substituição para paginação, selecionar a opção 3.\n" )
 
     menuSelecionado = int( input("Digite um valor: ") )
 
@@ -45,13 +43,13 @@ def criarProcesso( idProcesso ):
 if __name__ == '__main__':
 
     opcao = -1
-    while opcao != 1 or opcao != 2:
-        print( "Que mode de substituição de processo deseja usar?" )
-        print( '''1 - {};
-        2 - {}.'''.format( "SWAPPING", "PAGINAÇÃO" ) )
+    while opcao < 1 or opcao > 2 :
+        print( "Que modo de substituição de processo deseja usar?" )
+        print( '''1 - {};\n2 - {}.'''.format( "SWAPPING", "PAGINAÇÃO" ) )
         opcao = int( input( "Digite o valor: " ) )
-        if( opcao != 1 or opcao != 2  ):
-            print( "O valor '{}' que você entrou é inválido.\nFavor Selecionar uma dos valores acima." )
+        
+        if( opcao < 1 or opcao > 2 ):
+            print( "O valor {} que você entrou é inválido.\nFavor Selecionar uma dos valores acima.".format(opcao) )
 
     TAMANHOPAGINA = 200
     gerenciadorMemoria = GerenciadorMemoria()
@@ -66,7 +64,7 @@ if __name__ == '__main__':
     contadorIdProcesso = 1000
 
     # Caminho para o disco físico (arquivo)
-    caminhoDisco = "disco.csv"
+    caminhoDisco = "discorepositorio.csv"
 
     memoriaPrimaria = MemoriaPrimaria()
     processador = Processador()
@@ -106,6 +104,7 @@ if __name__ == '__main__':
                                 MemoriaSecundaria.armazenarProcessoDisco( processoRemovidoAtual, caminhoDisco )
                     
                     gerenciadorMemoria.adicionarProcessoMemoriaPrimaria( memoriaPrimaria, novoProcesso )
+                    processador.montarTabelaDeExecucaoDeProcessos( memoriaPrimaria )
                 
                 processoEscalonado = processador.escalonadorDeProcesso()
                 gerenciadorMemoria.atualizarBitRProcessosNaoReferenciados()
