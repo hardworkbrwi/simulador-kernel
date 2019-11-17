@@ -64,7 +64,7 @@ if __name__ == '__main__':
     contadorIdProcesso = 1000
 
     # Caminho para o disco físico (arquivo)
-    caminhoDisco = "discorepositorio.csv"
+    caminhoDisco = "disco.csv"
 
     memoriaPrimaria = MemoriaPrimaria()
     processador = Processador()
@@ -121,98 +121,6 @@ if __name__ == '__main__':
 
                 elif( flagConclusao == 0 ):
                     gerenciadorMemoria.atualizaBitsReferenciaNaoModificacaoMemoriaPrimaria( memoriaPrimaria, processoEscalonado )
-                        
-            '''
-            if( novoProcesso != None ): #D1
-                tamanhoMaxMemoria = memoriaPrimaria.tamanhoMemoria
-                quantidadePosicoesOcupadasMemoria = len( memoriaPrimaria.posicoesMemoria )
-                tamanhoNovoProcesso = novoProcesso.tamanhoProcesso
-
-                if( quantidadePosicoesOcupadasMemoria + tamanhoNovoProcesso > tamanhoMaxMemoria ):
-                    listaProcessosRemovidos = gerenciadorMemoria.liberarEspacoMemoriaPrimaria( memoriaPrimaria, tamanhoNovoProcesso )
-
-                    for processoRemovidoAtual in listaProcessosRemovidos:
-                        if( processoRemovidoAtual.tempoVida > 0 ):
-                            MemoriaSecundaria.armazenarProcessoDisco( processoRemovidoAtual, caminhoDisco )
-                
-                gerenciadorMemoria.adicionarProcessoMemoriaPrimaria( memoriaPrimaria, novoProcesso )
-                    
-                processoEscalonado = processador.escalonadorDeProcesso()
-                gerenciadorMemoria.atualizarBitRProcessosNaoReferenciados()
-                gerenciadorMemoria.atualizaBitsReferenciaModificacaoMemoriaPrimaria( memoriaPrimaria, processoEscalonado )
-                flagConclusao = processador.executar()
-
-                if( flagConclusao == -1 ):
-                    espacoASerRemovido = gerenciadorMemoria.tamanhoPagina
-                    gerenciadorMemoria.liberarEspacoMemoriaPrimaria( memoriaPrimaria, espacoASerRemovido, processoEscalonado )
-                
-                elif( flagConclusao == 1 ):
-                    gerenciadorMemoria.atualizarTempoVidaProcesso( memoriaPrimaria, processoEscalonado )
-
-                elif( flagConclusao == 0 ):
-                    gerenciadorMemoria.atualizaBitsReferenciaNaoModificacaoMemoriaPrimaria( memoriaPrimaria, processoEscalonado )
-
-                if( quantidadePosicoesOcupadasMemoria + tamanhoNovoProcesso <= tamanhoMaxMemoria ): # B) M0 e D1 / D) M1_Disp e D1
-                    gerenciadorMemoria.adicionarProcessoMemoriaPrimaria( memoriaPrimaria, novoProcesso )
-                    
-                    processoEscalonado = processador.escalonadorDeProcesso()
-                    gerenciadorMemoria.atualizarBitRProcessosNaoReferenciados()
-                    gerenciadorMemoria.atualizaBitsReferenciaModificacaoMemoriaPrimaria( memoriaPrimaria, processoEscalonado )
-                    flagConclusao = processador.executar()
-
-                    if( flagConclusao == -1 ):
-                        espacoASerRemovido = gerenciadorMemoria.tamanhoPagina
-                        gerenciadorMemoria.liberarEspacoMemoriaPrimaria( memoriaPrimaria, espacoASerRemovido, processoEscalonado )
-                    
-                    elif( flagConclusao == 1 ):
-                        gerenciadorMemoria.atualizarTempoVidaProcesso( memoriaPrimaria, processoEscalonado )
-
-                    elif( flagConclusao == 0 ):
-                        gerenciadorMemoria.atualizaBitsReferenciaNaoModificacaoMemoriaPrimaria( memoriaPrimaria, processoEscalonado )
-                
-                else: # F) M1_NDisp e D1
-                    listaProcessosRemovidos = gerenciadorMemoria.liberarEspacoMemoriaPrimaria( memoriaPrimaria, tamanhoNovoProcesso )
-
-                    for processo in listaProcessosRemovidos:
-                        if( processo.tempoVida > 0 ):
-                            MemoriaSecundaria.armazenarProcessoDisco( processo, caminhoDisco )
-                    
-                    gerenciadorMemoria.adicionarProcessoMemoriaPrimaria( memoriaPrimaria, novoProcesso )
-
-                    processoEscalonado = processador.escalonadorDeProcesso()
-                    gerenciadorMemoria.atualizarBitRProcessosNaoReferenciados()
-                    gerenciadorMemoria.atualizaBitsReferenciaModificacaoMemoriaPrimaria( memoriaPrimaria, processoEscalonado )
-                    flagConclusao = processador.executar()
-
-                    if( flagConclusao == -1 ):
-                        espacoASerRemovido = gerenciadorMemoria.tamanhoPagina
-                        gerenciadorMemoria.liberarEspacoMemoriaPrimaria( memoriaPrimaria, espacoASerRemovido, processoEscalonado )
-                    
-                    elif( flagConclusao == 1 ):
-                        gerenciadorMemoria.atualizarTempoVidaProcesso( memoriaPrimaria, processoEscalonado )
-
-                    elif( flagConclusao == 0 ):
-                        gerenciadorMemoria.atualizaBitsReferenciaNaoModificacaoMemoriaPrimaria( memoriaPrimaria, processoEscalonado )
-
-            elif( not memoriaVazia and novoProcesso == None ): # C) M1_Disp e D0 / E) M1_NDisp e D0
-                processoEscalonado = processador.escalonadorDeProcesso()
-                gerenciadorMemoria.atualizarBitRProcessosNaoReferenciados()
-                gerenciadorMemoria.atualizaBitsReferenciaModificacaoMemoriaPrimaria( memoriaPrimaria, processoEscalonado )
-                flagConclusao = processador.executar()
-
-                if( flagConclusao == -1 ):
-                    espacoASerRemovido = gerenciadorMemoria.tamanhoPagina
-                    gerenciadorMemoria.liberarEspacoMemoriaPrimaria( memoriaPrimaria, espacoASerRemovido, processoEscalonado )
-                
-                elif( flagConclusao == 1 ):
-                    gerenciadorMemoria.atualizarTempoVidaProcesso( memoriaPrimaria, processoEscalonado )
-
-                elif( flagConclusao == 0 ):
-                    gerenciadorMemoria.atualizaBitsReferenciaNaoModificacaoMemoriaPrimaria( memoriaPrimaria, processoEscalonado )
-
-            else: # A) M0 e D0
-                pass
-            '''
 
         elif( opcao == 3 ):
             gerenciadorMemoria.exibirMapaBits()

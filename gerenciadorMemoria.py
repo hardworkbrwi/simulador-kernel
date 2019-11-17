@@ -112,39 +112,6 @@ class GerenciadorMemoria:
                 return posicaoInicialProcessoBuscado
         
         return posicaoInicialProcessoBuscado
-    
-    '''
-    def adicionarProcessoMemoriaPrimaria( self, memoriaPrimaria, processo = None, tamanhoPagina = None ):
-
-        # Retorna falsa se não há processo no disco
-        # Se existe processo no disco verdadeiro
-        
-        if( processo == None ):
-            self._removerProcessoMemoriaPrimaria( memoriaPrimaria, processo, tamanhoPagina )
-
-        else:
-            quantidadePosicoesOcupadasMemoria = len( memoriaPrimaria.posicoesMemoria )
-            if( self._tamanhoPagina == None ):
-                self._tamanhoPagina = processo.tamanhoProcesso
-
-            tamanhoMaxMemoria = memoriaPrimaria.tamanhoMemoria
-
-            if( quantidadePosicoesOcupadasMemoria + self._tamanhoPagina >= tamanhoMaxMemoria ):
-                self._removerProcessoMemoriaPrimaria( memoriaPrimaria, processo )
-
-            posicaoInicial = self._mapaBits.indiceMemoriaLivre
-            
-            memoriaPrimaria.adicionarProcessoMemoria( processo, posicaoInicial, self._tamanhoPagina )
-
-            segmento = Segmento()
-            segmento.processo = processo
-            segmento.posicaoInicial = posicaoInicial
-            segmento.quantidadePosicoes = self._tamanhoPagina
-
-            self._mapaBits.adicionarSegmento( segmento )
-
-    '''
-
 
     @property
     def tamanhoPagina( self ):
