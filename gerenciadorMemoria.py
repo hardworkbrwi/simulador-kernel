@@ -17,43 +17,15 @@ class GerenciadorMemoria:
         self._mapaBits = MapeamentoEncadeadoBits()
         self._tamanhoPagina = tamanhoPagina
 
-    def adicionarProcessoMemoriaPrimaria( self, memoriaPrimaria, processo, tamanhoPagina = None ):
+    def adicionarProcessoMemoriaPrimaria( self, memoriaPrimaria, processo ):
 
-        # Retorna falsa se não há processo no disco
-        # Se existe processo no disco verdadeiro
-        quantidadePosicoesOcupadasMemoria = len( memoriaPrimaria.posicoesMemoria )
-        tamanhoMaxMemoria = memoriaPrimaria.tamanhoMemoria
-
-        if( tamanhoPagina == None ):
+        if( self._tamanhoPagina == None ):
             espacoOcupadoProcesso = processo.tamanhoProcesso
         else:
-            espacoOcupadoProcesso = tamanhoPagina
-
-        if( quantidadePosicoesOcupadasMemoria + espacoOcupadoProcesso > tamanhoMaxMemoria ):
-            self._liberarEspacoMemoriaPrimaria( memoriaPrimaria, espacoOcupadoProcesso )
-        '''
-            # REMOVER USANDO ALGORÍTIMO DE SUBSTITUIÇÃO DE PÁGINA LRU
-            while( quantidadePosicoesOcupadasMemoria + espacoOcupadoProcesso > tamanhoMaxMemoria ):
-
-                indicePosicaoInicialProcessoASerRemovidoMemoria = self._buscarPaginaASerRemovidaPorClasse()
-                if( indicePosicaoInicialProcessoASerRemovidoMemoria != -1 ):
-                    idProcessoASerRemovido = memoriaPrimaria.posicoesMemoria[ indicePosicaoInicialProcessoASerRemovidoMemoria ]
-
-                    memoriaPrimaria.liberarMemoria( indicePosicaoInicialProcessoASerRemovidoMemoria, espacoOcupadoProcesso )
-                
-                    indiceSegmentoASerRemovido = self._mapaBits.buscarIndiceSegmentoPorIdProcesso( idProcessoASerRemovido )
-                    self._mapaBits.removerSegmento( indiceSegmentoASerRemovido )
-
-                    quantidadePosicoesOcupadasMemoria = len( memoriaPrimaria.posicoesMemoria )
-
-                else:
-                    print( "Não foram encontradas paginas com classes de substituição definidas." )
-
-            # Fim de remover segmento
-        '''
+            espacoOcupadoProcesso = self._tamanhoPagina
 
         posicaoInicial = self._mapaBits.indiceMemoriaLivre
-        memoriaPrimaria.adicionarProcessoMemoria( processo, posicaoInicial, espacoOcupadoProcesso)
+        memoriaPrimaria.adicionarProcessoMemoria( processo, posicaoInicial, espacoOcupadoProcesso )
 
         segmento = Segmento()
         segmento.processo = processo
@@ -62,7 +34,7 @@ class GerenciadorMemoria:
 
         self._mapaBits.adicionarSegmento( segmento )
 
-    def _liberarEspacoMemoriaPrimaria( self, memoriaPrimaria, espacoASerLiberado ):
+    def liberarEspacoMemoriaPrimaria( self, memoriaPrimaria, espacoASerLiberado ):
         listaProcessosRemovidos = []
         quantidadePosicoesOcupadasMemoria = len( memoriaPrimaria.posicoesMemoria )
         tamanhoMaxMemoria = memoriaPrimaria.tamanhoMemoria
@@ -72,9 +44,13 @@ class GerenciadorMemoria:
 
             indicePosicaoInicialProcessoASerRemovidoMemoria = self._buscarPaginaASerRemovidaPorClasse()
             if( indicePosicaoInicialProcessoASerRemovidoMemoria != -1 ):
-                idProcessoASerRemovido = memoriaPrimaria.posicoesMemoria[ indicePosicaoInicialProcessoASerRemovidoMemoria ]
+                idProcessoASerRemovido = memoriaPrimaria.posicoesMemoria[ indicePosicaoInicialProcessoASerRemovidoMemoria ].idProcesso
+                if( self._tamanhoPagina == None ):
+                    tamanhoPaginaProcessoASerRemovido = memoriaPrimaria.posicoesMemoria[ indicePosicaoInicialProcessoASerRemovidoMemoria ].tamanhoProcesso
+                else:
+                    tamanhoPaginaProcessoASerRemovido = self._tamanhoPagina
 
-                processoRemovido = memoriaPrimaria.liberarMemoria( indicePosicaoInicialProcessoASerRemovidoMemoria, espacoASerLiberado )
+                processoRemovido = memoriaPrimaria.liberarMemoria( indicePosicaoInicialProcessoASerRemovidoMemoria, tamanhoPaginaProcessoASerRemovido )
                 listaProcessosRemovidos.append( processoRemovido )
             
                 indiceSegmentoASerRemovido = self._mapaBits.buscarIndiceSegmentoPorIdProcesso( idProcessoASerRemovido )
@@ -89,10 +65,9 @@ class GerenciadorMemoria:
 
         # Fim de remover segmento
 
-
-
-
-
+    def exibirMapaBits( self ):
+        self._mapaBits.exibirMapaBits()
+    
     def _buscarPaginaASerRemovidaPorClasse( self ):
         self._mapaBits.atualizarClassesSubstituicaoPagina()
 
@@ -135,64 +110,7 @@ class GerenciadorMemoria:
             self._mapaBits.adicionarSegmento( segmento )
 
     '''
-    
 
-    '''
-    def _removerProcessoMemoriaPrimaria( self, memoriaPrimaria, processo, tamanhoPagina ):
-
-        if( processo == None ):
-            processoRemovido = memoriaPrimaria.liberarMemoria( self._tamanhoPagina )
-
-            self._mapaBits.removerSegmento()
-            
-            #tempoVidaProcessoRemovido = processoRemovido.tempoVida
-
-            # QUEM FARÁ ESSE CONTROLE SERÁ O KERNEL
-            #if( tempoVidaProcessoRemovido > 0 ):
-            #    MemoriaSecundaria.armazenarProcesso( processoRemovido )
-
-        else:
-            quantidadePosicoesOcupadasMemoria = len( memoriaPrimaria.posicoesMemoria )
-            tamanhoProcesso = processo.tamanhoProcesso
-            tamanhoMaxMemoria = memoriaPrimaria.tamanhoMemoria
-
-            while( quantidadePosicoesOcupadasMemoria + tamanhoProcesso >= tamanhoMaxMemoria ):
-                processoRemovido = memoriaPrimaria.liberarMemoria()
-
-                self._mapaBits.removerSegmento()
-                
-                tempoVidaProcessoRemovido = processoRemovido.tempoVida
-
-                if( tempoVidaProcessoRemovido > 0 ):
-                    MemoriaSecundaria.armazenarProcessoDisco( processoRemovido )
-
-                quantidadePosicoesOcupadasMemoria = len( memoriaPrimaria.posicoesMemoria )  
-
-    # Obsoleto
-    def buscarProcessoASerRemovido( self, memoriaPrimaria ):
-    
-        Método de busca de processo a ser removido a partir de algorítimo de substituição de
-        página LRU
-        
-        :int tempoVida:
-        :field tempoVida: define o tempo de vida útil do processo
-
-        indiceSegmento = -1
-        processoASerRemovido = None
-        for i in range( 0, 4 ):
-            indiceSegmento = self._mapaBits.buscarSegmentoPorClasseSubstiuticao( i )
-            if( indiceSegmento != -1 ):
-                segmentoProcessoASerRemovido = self._mapaBits[indiceSegmento]
-                processoASerRemovido = segmentoProcessoASerRemovido.processo
-
-        return processoASerRemovido
-    '''
-
-
-
-    
-    def exibirMapaBits( self ):
-        self._mapaBits.exibirMapaBits()
 
     @property
     def tamanhoPagina( self ):
