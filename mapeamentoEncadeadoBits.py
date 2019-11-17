@@ -65,7 +65,7 @@ class MapeamentoEncadeadoBits:
         for segmento in self._listaSegmentos:
             segmento.definirClasseSubstituicaoPagina()
 
-    def atualizarbitRParaProcessoNaoReferenciados( self ):
+    def atualizarbitRParaProcessosNaoReferenciados( self ):
         for segmento in self._listaSegmentos:
             segmento.processo.bitR = 0
 

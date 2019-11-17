@@ -65,6 +65,9 @@ class GerenciadorMemoria:
 
         # Fim de remover segmento
 
+    def atualizarBitRProcessosNaoReferenciados( self ):
+        self._mapaBits.atualizarbitRParaProcessosNaoReferenciados()
+
     def exibirMapaBits( self ):
         self._mapaBits.exibirMapaBits()
     
