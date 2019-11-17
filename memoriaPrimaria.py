@@ -56,6 +56,21 @@ class MemoriaPrimaria:
 
         return processoASerRemovido
 
+    def buscarIndicePorProcesso( self, processoBuscado ):
+        indice = -1
+        for indice, processoAtual in enumerate( self._posicoesMemoria ):
+            if( processoAtual.idProcesso == processoBuscado.idProcesso ):
+                return indice
+                
+        return indice
+
+    def memoriaEstaVazia(  self ):
+        quantidadePosicoesOcupadas = len( self._posicoesMemoria )
+        if( quantidadePosicoesOcupadas == 0 ):
+            return True
+        
+        return False
+    
     def exibirMemoriaPrimariaTamanhoTotalProcesso( self ):
         """
 		Exibe os processos inseridos na memória primária
@@ -112,12 +127,6 @@ class MemoriaPrimaria:
 
         print( grade )
 
-    def memoriaEstaVazia(  self ):
-        quantidadePosicoesOcupadas = len( self._posicoesMemoria )
-        if( quantidadePosicoesOcupadas == 0 ):
-            return True
-        
-        return False
     
     @property
     def posicoesMemoria( self ):
