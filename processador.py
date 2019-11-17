@@ -12,8 +12,7 @@ class Processador:
         self._tabelaDeExecucaoDeProcessos = [ [] for _ in range(5) ]
         self._nivelAtualDePrioridade = 0
 
-    def executar( self ):
-        processo = self.escalonadorDeProcesso()
+    def executar( self, processo ):
         tempoDeVidaInicial = processo.tempoVida
         processo.tempoVida = processo.tempoVida - 2
 
@@ -24,15 +23,23 @@ class Processador:
         elif tempoDeVidaInicial == processo.tempoVida:
             return 0 
 
+        self.adicionarProcessoNaTabelaDeExecucaoDeProcessos( processo )
+        
         return 1
     
     def montarTabelaDeExecucaoDeProcessos( self, memoriaPrimaria ):
         item = 0
 
+        for processos in self._tabelaDeExecucaoDeProcessos:
+            processos.clear()
+
         while item < len( memoriaPrimaria.posicoesMemoria ):
             processo = memoriaPrimaria.posicoesMemoria[ item ]
             self._tabelaDeExecucaoDeProcessos[ processo.prioridade ].append( processo )
             item = item + processo.tamanhoProcesso
+
+    def adicionarProcessoNaTabelaDeExecucaoDeProcessos( self, processo ):
+        self._tabelaDeExecucaoDeProcessos[ self._nivelAtualDePrioridade ].append( processo )
 
     def escalonadorDeProcesso( self ):
         procurarProcesso = True
@@ -48,8 +55,7 @@ class Processador:
                 procurarProcesso = False
         
         if self._nivelAtualDePrioridade < 5:
-            return self._tabelaDeExecucaoDeProcessos[ self._nivelAtualDePrioridade ][0]
-            #### INSERIR FUNÇÃO PARA REDUZIR BITR DE TODOS OS OUTROS PROCESSOS NÃO SELECIONADOS ####
+            return self._tabelaDeExecucaoDeProcessos[ self._nivelAtualDePrioridade ].pop(0)
         else:
             return None
         
@@ -59,6 +65,16 @@ class Processador:
         else: 
             return False
     
+    def tabelaDeExecucaoDeProcessosEstaVazia( self ):
+        estaVazia = True
+
+        for processos in self._tabelaDeExecucaoDeProcessos:
+            if len( processos ) > 0:
+                estaVazia = False
+                break
+        
+        return estaVazia
+
     def exibirTabelaDeExecucaoDeProcessos( self ):
         contadorDeNivel = 0
 
@@ -69,7 +85,3 @@ class Processador:
                 print("\n")
             print("---------------------------------")
             contadorDeNivel = contadorDeNivel + 1
-
-    def atualizarTabelaDeExecucaoDeProcessos( self ):
-        
-        pass
