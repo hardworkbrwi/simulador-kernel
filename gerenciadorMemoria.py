@@ -65,6 +65,12 @@ class GerenciadorMemoria:
 
         # Fim de remover segmento
 
+    def atualizaBitsReferenciaModificacaoMemoriaPrimaria( self, memoriaPrimaria, processoAtual ):
+        indiceProcessoBuscado = memoriaPrimaria.buscarIndicePorProcesso( processoAtual )        
+        if( indiceProcessoBuscado != -1 ):
+            memoriaPrimaria.posicoesMemoria[ indiceProcessoBuscado ].bitR = 1
+            memoriaPrimaria.posicoesMemoria[ indiceProcessoBuscado ].bitM = 1
+
     def atualizarBitRProcessosNaoReferenciados( self ):
         self._mapaBits.atualizarbitRParaProcessosNaoReferenciados()
 
